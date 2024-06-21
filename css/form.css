@@ -1,0 +1,127 @@
+.section-two-formed {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    border-radius: 10px;
+    margin: 0 auto;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(247, 160, 160, 0.1);
+}
+
+.form__group {
+    position: relative;
+    padding: 20px 0 0;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 1rem;
+}
+
+.form__field {
+    font-family: inherit;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 17px;
+    color: rgba(14, 17, 22, .5);
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.form__field::placeholder {
+    color: transparent;
+}
+
+.form__field:placeholder-shown ~ .form__label {
+    font-size: 17px;
+    cursor: text;
+    top: 20px;
+}
+
+.form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 17px;
+    font-family: Montserrat, sans-serif;
+    color: rgba(14, 17, 22, .5);
+    pointer-events: none;
+}
+
+.form__field:focus {
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 2px;
+    border-image: linear-gradient(to right, #5787D3, #5787D3);
+    border-image-slice: 1;
+}
+
+.form__field:focus ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 17px;
+    color: #5787D3;
+    font-weight: 400;
+}
+
+.form__field:required,
+.form__field:invalid {
+    box-shadow: none;
+}
+
+.login-btn {
+    background-color: #4caf50;
+    border-color: #4caf50;
+    color: #fff;
+    font-size: 1.3rem;
+    padding: .5rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #45a049;
+    border-color: #45a049;
+}
+
+.text-right {
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    .section-two-formed {
+        padding: 1rem;
+    }
+
+    .text-holder {
+        text-align: center;
+    }
+
+    .form__group {
+        max-width: 100%;
+        margin: 1rem 0;
+    }
+
+    .form__group:nth-child(even) {
+        margin-left: 0;
+    }
+
+    .set {
+        padding: 1rem;
+    }
+
+    .login-btn {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .text-right {
+        text-align: center;
+    }
+}

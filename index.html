@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+
+    <style>
+
+         /* Common styles */
+         .nav-link {
+        position: relative;
+        text-decoration: none;
+        color: white;
+        transition: color 0.3s;
+        padding-bottom: 5px; /* Ensure space for the underline */
+    }
+
+    /* White line styles */
+    .nav-link::before {
+        content: '';
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        bottom: -1px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        transition: width 0.3s, left 0.3s; /* Transition width and left position */
+    }
+
+    /* Hover effect */
+    .nav-link:hover {
+        color: white; /* Adjust as needed */
+    }
+
+    .nav-link:hover::before {
+        width: 50%;
+        left: 50%; /* Adjust the left position to center the line */
+    }
+        .floating-label {
+            position: relative;
+            margin-bottom: 1.5rem; /* Adjust margin as needed */
+        }
+        .floating-input {
+            border: 0;
+            border-bottom: 2px solid #d1d5db; /* Gray-300 */
+            outline: none;
+            width: 100%;
+            padding: 1rem 0.5rem 0.5rem;
+            background: transparent;
+            transition: border-color 0.2s;
+            font-size: 1rem; /* Adjust as needed */
+            color: #1f2937; /* Adjust as needed */
+        }
+        .floating-input:focus {
+            border-color: #3b82f6; /* Blue-500 */
+        }
+        .floating-label label {
+            position: absolute;
+            top: 1rem;
+            left: 0.5rem;
+            pointer-events: none;
+            transition: all 0.2s ease-in-out;
+            color: #9ca3af; /* Gray-400 */
+        }
+        .floating-input:focus + label,
+        .floating-input:not(:placeholder-shown) + label {
+            top: 0;
+            left: 0.5rem;
+            font-size: 0.75rem;
+            color: #3b82f6; /* Blue-500 */
+        }
+        /* Adjusted positioning for error messages */
+        .error-message {
+            position: absolute;
+            bottom: -1.5rem; /* Adjust this value as needed */
+            left: 1rem; /* Adjust this value as needed */
+            font-size: 0.75rem;
+            color: #ef4444; /* Red-600 */
+        }
+        /* Adjust for combined country code and mobile number */
+        .combined-input {
+            display: flex;
+            align-items: center;
+        }
+        .combined-input select {
+            width: 4rem; /* Adjust width for country code */
+            flex: 0 0 4rem; /* Fixed width for select */
+            border: 0;
+            border-bottom: 2px solid #d1d5db; /* Gray-300 */
+            outline: none;
+            background: transparent;
+            transition: border-color 0.2s;
+            font-size: 1rem; /* Adjust as needed */
+            color: #1f2937; /* Adjust as needed */
+        }
+        .combined-input input {
+            flex: 1 1 auto; /* Take remaining width */
+            border: 0;
+            border-bottom: 2px solid #d1d5db; /* Gray-300 */
+            outline: none;
+            padding: 1rem 0.5rem 0.5rem;
+            background: transparent;
+            transition: border-color 0.2s;
+            font-size: 1rem; /* Adjust as needed */
+            color: #1f2937; /* Adjust as needed */
+            margin-left: 0.5rem; /* Add space between select and input */
+        }
+    </style>
+    
+    
+</head>
+
+<body class="font-sans bg-red-800 m-0 p-0">
+
+    <nav class="fixed top-0 left-0 right-0 h-12 flex items-center bg-red-700 shadow-md z-50 p-4">
+        <div class="navbar-container flex justify-between items-center mx-auto w-full max-w-6xl">
+            <div class="flex items-center">
+                <a href="#" class="block w-24 mr-4"> 
+                    <img src="https://apply.kautilya.org.in/static/img/kautilya_logo.png" alt="Kautilya Logo">
+                </a>
+            </div>
+            <div class="hidden md:flex gap-8 items-center">
+                <a href="https://kautilya.org.in/masters-program/" class="nav-link">Master's program</a>
+                <a href="https://kautilya.org.in/about-kautilya/" class="nav-link">About</a>
+                <a href="https://kautilya.org.in/our-faculty/" class="nav-link">Faculty</a>
+                <a href="https://kautilya.org.in/placements/" class="nav-link">Placements</a>
+                <a href="https://kautilya.org.in/resources/" class="nav-link">Events</a>
+                <a href="https://kautilya.org.in/admissions-and-aid/" class="nav-link">Admissions</a>
+                <a href="/" class="text-white bg-black px-4 py-2 rounded">APPLY</a>
+            </div>
+            <div class="md:hidden flex items-center" x-data="{ open: false }">
+                <button @click="open = !open" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+                <div x-show="open" x-transition:enter="transition transform duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition transform duration-300" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full" class="fixed inset-0 bg-red-700 bg-opacity-95 flex flex-col items-center justify-center space-y-6 z-50">
+                    <button @click="open = false" class="text-white absolute top-4 right-4 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                    <a href="https://kautilya.org.in/masters-program/" class="nav-link text-xl py-2 px-4">Master's program</a>
+                    <a href="https://kautilya.org.in/about-kautilya/" class="nav-link text-xl py-2 px-4">About</a>
+                    <a href="https://kautilya.org.in/our-faculty/" class="nav-link text-xl py-2 px-4">Faculty</a>
+                    <a href="https://kautilya.org.in/placements/" class="nav-link text-xl py-2 px-4">Placements</a>
+                    <a href="https://kautilya.org.in/resources/" class="nav-link text-xl py-2 px-4">Events</a>
+                    <a href="https://kautilya.org.in/admissions-and-aid/" class="nav-link text-xl py-2 px-4">Admissions</a>
+                    <a href="/" class="nav-link text-xl py-2 px-4">APPLY</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-20 p-4">
+        <div class="max-w-6xl mx-auto text-left">
+
+        <div class="text-left text-white text-4xl my-8">Application Form - Master’s Program in Public Policy (MPP) 2024</div>
+        <div class="bg-white w-full max-w-2xl rounded-lg mx-auto p-6 shadow-md">
+            <div class="max-w-xl mx-auto">
+                <form id="registration_form" class="space-y-4" method="post" action="/user/user_login" novalidate>
+                    <div class="text-center">
+                        <div class="text-2xl font-semibold mb-2">Email Registration</div>
+                        <div class="text-gray-500">Please provide us your email address to continue with the registration process</div>
+                    </div>
+                    <div class="border-t border-gray-200 my-4"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                            <div class="relative overflow-hidden">
+                                <input type="text" class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500" name="firstName" id="firstName" placeholder=" ">
+                                <label for="firstName" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">First Name</label>
+                            </div>
+                            <span class="error-message" id="firstNameError"></span>
+                            <span class="text-gray-600 text-xs absolute bottom-[-1rem] right-4" id="firstNameCount">0/50</span>
+                        </div>
+                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                            <div class="relative overflow-hidden">
+                                <input type="text" class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500" name="lastName" id="lastName" placeholder=" ">
+                                <label for="lastName" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Last Name</label>
+                            </div>
+                            <span class="error-message" id="lastNameError"></span>
+                            <span class="text-gray-600 text-xs absolute bottom-[-1rem] right-4" id="lastNameCount">0/50</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                            <div class="combined-input flex items-start">
+                                <select id="countryCode" class="border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500" name="countryCode" required>
+                                    <option value="91">🇮🇳 +91</option>
+                                </select>
+                                <div class="relative flex-grow">
+                                    <input type="number" class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500" name="mobileNumber" id="mobileNumber" placeholder=" ">
+                                    <label for="mobileNumber" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Mobile Number</label>
+                                </div>
+                            </div>
+                            <span class="error-message" id="mobileNumberError"></span>
+                        </div>
+                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                            <input type="email" class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500" name="email" id="email" placeholder="" required maxlength="50">
+                            <label for="email" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Email Address</label>
+                            <span class="error-message" id="emailError"></span>
+                        </div>
+                    </div>
+                    <div class="my-4"></div>
+                    <div class="border-t border-gray-200 my-4"></div>
+                    <div class="flex justify-between items-center">
+                        <a href="/Pages/loginform.html" class="text-red-600">Already Registered?</a>
+                        <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">REGISTER</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+
+        </div>
+    </div>
+    
+    
+    
+
+    <script src="/js/validations.js"></script>
+</body>
+
+</html>

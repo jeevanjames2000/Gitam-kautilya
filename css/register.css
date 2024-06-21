@@ -1,0 +1,255 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #b11217;
+    margin: 0;
+    padding: 0;
+}
+
+.topnav {
+    position: fixed;
+    top: 0;
+    left: 15rem;
+    right: 15rem;
+    height: 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #b51d22;
+    box-shadow: 0 3px 20px rgba(0, 0, 0, .25);
+    border-radius: 0 0 .2rem .2rem;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.nav-inner-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.img-div {
+    flex: 1;
+}
+
+.logo img {
+    max-width: 150px;
+}
+
+.menu {
+    display: flex;
+    gap: 1rem;
+    flex: 2;
+    justify-content: flex-end;
+}
+
+.menu .item,
+.menu .item-button {
+    display: flex;
+    align-items: center;
+}
+
+.menu .item a,
+.menu .item-button a {
+    text-decoration: none;
+    color: #fff;
+    font-size: medium;
+    font-weight: 500;
+    padding: 1rem 1rem;
+    position: relative;
+    /* Add relative positioning */
+    transition: background-color 0.3s ease;
+}
+
+.menu .item a::after,
+.menu .item-button a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    display: block;
+    margin-top: 5px;
+    left: 50%;
+    /* Start at the center */
+    transform: translateX(-50%);
+    /* Center the line */
+    background: white;
+    transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+.menu .item a:hover::after,
+.menu .item-button a:hover::after {
+    width: 50%;
+    /* Increase width to 50% */
+    background: white;
+}
+
+.menu .item a:hover,
+.menu .item-button a:hover {
+    color: #fff;
+}
+
+.page {
+    padding: 2rem;
+    padding-top: 80px;
+    /* Added padding to top */
+}
+
+.section {
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+.section-two-formed {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 700px;
+    border-radius: 10px;
+    margin: 0 auto;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.text-holder {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.text {
+    font-size: 1rem;
+    color: rgba(14, 17, 22, 0.5);
+}
+
+.divider {
+    border: 1px solid rgba(14, 17, 22, 0.1);
+    margin: 1rem 0;
+}
+
+.formset {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.form-group {
+    display: flex;
+    gap: 4rem;
+    
+}
+
+.form__group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 1rem;
+    flex: 1;
+}
+
+.field {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.form__field {
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #333;
+    padding: 1rem 0 0 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.form__field::placeholder {
+    color: transparent;
+}
+
+.form__field:focus::placeholder {
+    color: #9b9b9b;
+}
+
+.input-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.form__label {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    margin-left: 1rem;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #9b9b9b;
+    pointer-events: none;
+}
+
+.form__field:focus~.form__label,
+.form__field:not(:placeholder-shown)~.form__label {
+    top: 0;
+    font-size: 1rem;
+    color: #3478cb;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    position: absolute;
+    bottom: -2rem;
+}
+
+.char-count {
+    font-size: 0.8rem;
+    color: #999;
+    position: absolute;
+    bottom: -1rem;
+    right: 0;
+}
+.recaptcha {
+    margin: 1rem 0;
+}
+
+.text-register {
+    /* text-align: right; */
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.forgot-pass {
+    color: #f44336;
+    text-decoration: none;
+}
+
+.btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+@media screen and (max-width: 768px) {
+    .form__group {
+        width: 100%;
+    }
+}

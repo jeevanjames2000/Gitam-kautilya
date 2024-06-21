@@ -1,0 +1,140 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #b11217;
+    margin: 0;
+    padding: 0;
+}
+
+.topnav {
+    position: fixed;
+    top: 0;
+    left: 15rem;
+    right: 15rem;
+    height: 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #b51d22;
+    box-shadow: 0 3px 20px rgba(0, 0, 0, .25);
+    border-radius: 0 0 .2rem .2rem;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.nav-inner-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.img-div {
+    flex: 1;
+}
+
+.logo img {
+    max-width: 150px;
+}
+
+.menu {
+    display: flex;
+    gap: 1rem;
+    flex: 2;
+    justify-content: flex-end;
+}
+
+.menu .item,
+.menu .item-button {
+    display: flex;
+    align-items: center;
+}
+
+.menu .item a,
+.menu .item-button a {
+    text-decoration: none;
+    color: #fff;
+    font-size: medium;
+    font-weight: 500;
+    padding: 1rem 1rem;
+    position: relative;
+    /* Add relative positioning */
+    transition: background-color 0.3s ease;
+}
+
+.menu .item a::after,
+.menu .item-button a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    display: block;
+    margin-top: 5px;
+    left: 50%;
+    /* Start at the center */
+    transform: translateX(-50%);
+    /* Center the line */
+    background: white;
+    transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+.menu .item a:hover::after,
+.menu .item-button a:hover::after {
+    width: 50%;
+    /* Increase width to 50% */
+    background: white;
+}
+
+.menu .item a:hover,
+.menu .item-button a:hover {
+    color: #fff;
+}
+.page {
+    width: 100%;
+    background-color: #b51d22;
+    padding-top: 65px;
+}
+
+.page .crossline.formed {
+    position: fixed;
+    top: 0;
+    left: calc(50% - 100rem);
+    height: 200rem;
+    width: 200rem;
+    transform: rotate(-45deg);
+    background-color: #b51d22;
+    box-shadow: 0 0 45px 10px rgba(14, 17, 22, 0.2);
+    z-index: -1;
+}
+
+.page .section.one {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+    width: 100%;
+    height: fit-content;
+    padding: 4rem 10%;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.page .section.one .display {
+    font-family: Montserrat, sans-serif;
+    font-size: 5rem;
+    color: #ffffff;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.25;
+    text-decoration: none;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    position: absolute;
+    bottom: -1.5rem;
+    left: 0;
+    transition: 0.2s;
+}

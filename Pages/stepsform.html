@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+
+    <style>
+        /* Custom styles */
+        .nav-link {
+            position: relative;
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s;
+            padding-bottom: 5px;
+            /* Ensure space for the underline */
+        }
+
+        /* White line styles */
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            transition: width 0.3s, left 0.3s;
+            /* Transition width and left position */
+        }
+
+        /* Hover effect */
+        .nav-link:hover {
+            color: white;
+            /* Adjust as needed */
+        }
+
+        .nav-link:hover::before {
+            width: 50%;
+            left: 50%;
+            /* Adjust the left position to center the line */
+        }
+
+        .floating-label {
+            position: relative;
+            margin-bottom: 1.5rem;
+            /* Adjust margin as needed */
+        }
+
+        .floating-input {
+            border: 0;
+            border-bottom: 2px solid #d1d5db;
+            /* Gray-300 */
+            outline: none;
+            width: 100%;
+            padding: 1rem 0.5rem 0.5rem;
+            background: transparent;
+            transition: border-color 0.2s;
+            font-size: 1rem;
+            /* Adjust as needed */
+            color: #1f2937;
+            /* Adjust as needed */
+        }
+
+        .floating-input:focus {
+            border-color: #3b82f6;
+            /* Blue-500 */
+        }
+
+        .floating-label label {
+            position: absolute;
+            top: 1rem;
+            left: 0.5rem;
+            pointer-events: none;
+            transition: all 0.2s ease-in-out;
+            color: #9ca3af;
+            /* Gray-400 */
+        }
+
+        .floating-input:focus+label,
+        .floating-input:not(:placeholder-shown)+label {
+            top: 0;
+            left: 0.5rem;
+            font-size: 0.75rem;
+            color: #3b82f6;
+            /* Blue-500 */
+        }
+
+        /* Adjusted positioning for error messages */
+        .error-message {
+            position: absolute;
+            bottom: -1.5rem;
+            /* Adjust this value as needed */
+            left: 1rem;
+            /* Adjust this value as needed */
+            font-size: 0.75rem;
+            color: #ef4444;
+            /* Red-600 */
+        }
+
+        /* Adjust for combined country code and mobile number */
+        .combined-input {
+            display: flex;
+            align-items: center;
+        }
+
+        .combined-input select {
+            width: 4rem;
+            /* Adjust width for country code */
+            flex: 0 0 4rem;
+            /* Fixed width for select */
+            border: 0;
+            border-bottom: 2px solid #d1d5db;
+            /* Gray-300 */
+            outline: none;
+            background: transparent;
+            transition: border-color 0.2s;
+            font-size: 1rem;
+            /* Adjust as needed */
+            color: #1f2937;
+            /* Adjust as needed */
+        }
+
+        .combined-input input {
+            flex: 1 1 auto;
+            /* Take remaining width */
+            border: 0;
+            border-bottom: 2px solid #d1d5db;
+            /* Gray-300 */
+            outline: none;
+            padding: 1rem 0.5rem 0.5rem;
+            background: transparent;
+            transition: border-color 0.2s;
+            font-size: 1rem;
+            /* Adjust as needed */
+            color: #1f2937;
+            /* Adjust as needed */
+            margin-left: 0.5rem;
+            /* Add space between select and input */
+        }
+
+        .text-red-600 {
+            color: #ef4444;
+            /* Red-600 */
+        }
+
+        .file-input::-webkit-file-upload-button {
+            visibility: hidden;
+        }
+
+            .form.hidden {
+            display: none;
+        }
+
+        .file-input::before {
+            content: 'Choose File';
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .file-input:hover::before {
+            background-color: #2563eb;
+        }
+
+        .placeholder-transparent::-webkit-file-upload-button,
+        .placeholder-transparent::before {
+            content: none;
+            /* Remove default placeholder */
+        }
+
+        .file-input-container {
+            display: flex;
+            /* Use flexbox for side-by-side layout */
+            align-items: flex-start;
+            /* Align items at the top */
+            gap: 20px;
+        }
+
+        /*  */
+    </style>
+
+
+</head>
+
+<body class="font-sans bg-red-800 m-0 p-0 bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 h-12 flex items-center bg-red-700 shadow-md z-50 p-4">
+        <div class="navbar-container flex justify-between items-center mx-auto w-full max-w-6xl">
+            <div class="flex items-center">
+                <a href="#" class="block w-24 mr-4">
+                    <img src="https://apply.kautilya.org.in/static/img/kautilya_logo.png" alt="Kautilya Logo">
+                </a>
+            </div>
+            <div class="hidden md:flex gap-8 items-center">
+                <a href="https://kautilya.org.in/masters-program/" class="nav-link">Master's program</a>
+                <a href="https://kautilya.org.in/about-kautilya/" class="nav-link">About</a>
+                <a href="https://kautilya.org.in/our-faculty/" class="nav-link">Faculty</a>
+                <a href="https://kautilya.org.in/placements/" class="nav-link">Placements</a>
+                <a href="https://kautilya.org.in/resources/" class="nav-link">Events</a>
+                <a href="https://kautilya.org.in/admissions-and-aid/" class="nav-link">Admissions</a>
+                <a href="/" class="text-white bg-black px-4 py-2 rounded">LOGOUT</a>
+            </div>
+            <div class="md:hidden flex items-center" x-data="{ open: false }">
+                <button @click="open = !open" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+                <div x-show="open" x-transition:enter="transition transform duration-300"
+                    x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+                    x-transition:leave="transition transform duration-300" x-transition:leave-start="translate-x-0"
+                    x-transition:leave-end="translate-x-full"
+                    class="fixed inset-0 bg-red-700 bg-opacity-95 flex flex-col items-center justify-center space-y-6 z-50">
+                    <button @click="open = false" class="text-white absolute top-4 right-4 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                    <a href="https://kautilya.org.in/masters-program/" class="nav-link text-xl py-2 px-4">Master's
+                        program</a>
+                    <a href="https://kautilya.org.in/about-kautilya/" class="nav-link text-xl py-2 px-4">About</a>
+                    <a href="https://kautilya.org.in/our-faculty/" class="nav-link text-xl py-2 px-4">Faculty</a>
+                    <a href="https://kautilya.org.in/placements/" class="nav-link text-xl py-2 px-4">Placements</a>
+                    <a href="https://kautilya.org.in/resources/" class="nav-link text-xl py-2 px-4">Events</a>
+                    <a href="https://kautilya.org.in/admissions-and-aid/"
+                        class="nav-link text-xl py-2 px-4">Admissions</a>
+                    <a href="/" class="nav-link text-xl py-2 px-4">LOGOUT</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- nav bar ends -->
+
+    <!-- Main div for forms containers -->
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="w-full max-w-6xl mt-12 flex flex-col lg:flex-row">
+            <!-- Left steps div -->
+            <div class="w-1/3 h-full mt-10 bg-red-800 flex items-center justify-center">
+                <div class="bg-white w-full max-w-md h-full rounded-l-lg p-6 shadow-md">
+                    <ol class="list-none pt-10">
+                        <li class="mb-4 cursor-pointer" onclick="handleItemClick('personal-info')"
+                            data-target="personal-info">
+                            <h4 class="text-lg text-left pl-10 font-medium">1. PERSONAL INFORMATION</h4>
+                        </li>
+                        <li class="mb-4 cursor-pointer" onclick="handleItemClick('academic-details')"
+                            data-target="academic-details">
+                            <h4 class="text-lg text-left pl-10 font-medium">2. ACADEMIC DETAILS</h4>
+                        </li>
+                        <li class="mb-4 cursor-pointer" onclick="handleItemClick('employment-history')"
+                            data-target="employment-history">
+                            <h4 class="text-lg text-left pl-10 font-medium">3. EMPLOYMENT HISTORY</h4>
+                        </li>
+                        <li class="mb-4 cursor-pointer" onclick="handleItemClick('awards-honors')"
+                            data-target="awards-honors">
+                            <h4 class="text-lg text-left pl-10 font-medium">4. AWARDS AND HONORS</h4>
+                        </li>
+                        <li class="mb-4 cursor-pointer" onclick="handleItemClick('statement-purpose')"
+                            data-target="statement-purpose">
+                            <h4 class="text-lg text-left pl-10 font-medium">5. STATEMENT OF PURPOSE</h4>
+                        </li>
+                        <li class="mb-4 cursor-pointer" onclick="handleItemClick('policy-questions')"
+                            data-target="policy-questions">
+                            <h4 class="text-lg text-left pl-10 font-medium">6. POLICY QUESTIONS</h4>
+                        </li>
+                        <li class="mb-4 cursor-pointer" onclick="handleItemClick('scholarship')"
+                            data-target="scholarship">
+                            <h4 class="text-lg text-left pl-10 font-medium">7. SCHOLARSHIP</h4>
+                        </li>
+                        <li class="mb-4 cursor-pointer" onclick="handleItemClick('recommendations')"
+                            data-target="recommendations">
+                            <h4 class="text-lg text-left pl-10 font-medium">8. RECOMMENDATIONS</h4>
+                        </li>
+                        <li class="mb-4 cursor-pointer" onclick="handleItemClick('final-preview')"
+                            data-target="final-preview">
+                            <h4 class="text-lg text-left pl-10 font-medium">9. FINAL PREVIEW</h4>
+                        </li>
+                    </ol>
+                    <hr class="border-gray-300 my-4">
+                    <p class="text-sm text-gray-600 mt-4">
+                        Please do not close this link. Information will not be saved if the page is closed.
+                        A pop-up message at the bottom of the page indicates that your details have been successfully
+                        submitted. Good Luck!
+                    </p>
+                </div>
+            </div>
+            <!-- Left steps div -->
+
+
+            <!-- Right form div -->
+            <div class="w-full lg:w-2/3 h-full bg-white flex items-center rounded-lg shadow-lg justify-center">
+                <!-- right form div starts-->
+                <form id="personal-info" class="form w-full p-8" method="post" novalidate>
+                    <div class="set space-y-4">
+                        <div class="text-holder flex flex-col">
+                            <span class="text text-sm text-gray-500">part 1 of 9</span>
+                            <span class="title text-2xl font-semibold mb-2">PERSONAL INFORMATION</span>
+                        </div>
+                        <hr class="border-gray-300 my-4">
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- First Name -->
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="text"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="firstName" id="firstName" required>
+                                <label for="firstName"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">First
+                                    Name <span class="text-red-600">*</span></label>
+                                <span class="error-message" id="firstNameError"></span>
+                            </div>
+                            <!-- Middle Name -->
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="text"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="middleName" id="middleName">
+                                <label for="middleName"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Middle
+                                    Name</label>
+                                <span class="error-message" id="middleNameError"></span>
+                            </div>
+                        </div>
+
+                        <!-- Last Name and Email -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Last Name -->
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="text"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="lastName" id="lastName" required>
+                                <label for="lastName"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Last
+                                    Name <span class="text-red-600">*</span></label>
+                                <span class="error-message" id="lastNameError"></span>
+                            </div>
+
+                            <!-- Email Address -->
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="email"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="email" id="email" required>
+                                <label for="email"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Email
+                                    Address</label>
+                                <span class="error-message" id="emailError"></span>
+                            </div>
+                        </div>
+
+                        <!-- Gender and Date of Birth -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <select id="gender"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="gender" required>
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <label for="gender"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Gender
+                                    <span class="text-red-600">*</span></label>
+                                <span class="error-message" id="genderError"></span>
+                            </div>
+
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="date"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="dob" id="dob" required>
+                                <label for="dob"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Date
+                                    of Birth <span class="text-red-600">*</span></label>
+                                <span class="error-message" id="dobError"></span>
+                            </div>
+                        </div>
+
+                        <!-- Mobile Number and Home Phone Number -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="tel"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="mobileNumber" id="mobileNumber" required>
+                                <label for="mobileNumber"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Mobile
+                                    Number</label>
+                                <span class="error-message" id="mobileNumberError"></span>
+                            </div>
+
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="tel"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="homePhoneNumber" id="homePhoneNumber">
+                                <label for="homePhoneNumber"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Home
+                                    Phone Number</label>
+                                <span class="error-message" id="homePhoneNumberError"></span>
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="text"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="addressLine1" id="addressLine1" required>
+                                <label for="addressLine1"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Address
+                                    Line 1</label>
+                                <span class="error-message" id="addressLine1Error"></span>
+                            </div>
+
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="text"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="addressLine2" id="addressLine2">
+                                <label for="addressLine2"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Address
+                                    Line 2</label>
+                                <span class="error-message" id="addressLine2Error"></span>
+                            </div>
+                        </div>
+
+                        <!-- City and Postal Code -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="text"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="city" id="city" required>
+                                <label for="city"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">City</label>
+                                <span class="error-message" id="cityError"></span>
+                            </div>
+
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="text"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="postalCode" id="postalCode" required>
+                                <label for="postalCode"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Postal
+                                    Code</label>
+                                <span class="error-message" id="postalCodeError"></span>
+                            </div>
+                        </div>
+
+                        <!-- Country -->
+                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                            <select id="country"
+                                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                name="country" required>
+                                <option value="" disabled selected>Select Country</option>
+                                <!-- Add country options here -->
+                            </select>
+                            <label for="country"
+                                class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Country</label>
+                            <span class="error-message" id="countryError"></span>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="flex flex-col md:flex-row justify-end items-center">
+
+                            <div class="mt-4 md:mt-0">
+                                <button type="submit" class="text-gray-600 hover:text-red-600">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Academic Details Form (Hidden by default) -->
+                <form id="academic-details" class="form w-full p-8 hidden" method="post" novalidate>
+                    <div class="set space-y-4">
+                        <div class="text-holder flex flex-col">
+                            <span class="text text-sm text-gray-500">part 2 of 9</span>
+                            <span class="title text-2xl font-semibold mb-2">ACADEMIC DETAILS</span>
+                            <span class="text text-sm text-gray-500">
+                                Please list your qualifications, from your 10th standard up until the most recent
+                                qualification.
+
+                            </span>
+
+                        </div>
+                        <hr class="border-gray-300 my-4">
+                        <!-- added -->
+
+                        <!-- First Name -->
+                        <div class="max-w-2xl mx-auto">
+
+                            <!-- Qualification and Institution -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="text"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="Qualification" id="Qualification" required>
+                                    <label for="Qualification"
+                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Qualification
+                                        <span class="text-red-600">*</span></label>
+                                    <span class="error-message" id="Qualification"></span>
+                                </div>
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="text"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="Institution" id="Institution">
+                                    <label for="Institution"
+                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Institution
+                                        Name</label>
+                                    <span class="error-message" id="InstitutioneError"></span>
+                                </div>
+                            </div>
+
+                            <!-- Location -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="text"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="Location" id="Location" required>
+                                    <label for="Location"
+                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Location<span
+                                            class="text-red-600">*</span></label>
+                                    <span class="error-message" id="LocationError"></span>
+                                </div>
+
+                                <!--Board -->
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="text"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="board" id="board" required>
+                                    <label for="board"
+                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Board</label>
+                                    <span class="error-message" id="boardError"></span>
+                                </div>
+                            </div>
+
+                            <!-- Gender and Date of Birth -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <select id="cgpa/percentage"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="cgpa/percentage" required>
+                                        <option value="" disabled selected>CGPA/Percentage</option>
+                                        <option value="cgpa">CGPA</option>
+                                        <option value="percentage">Percentage</option>
+
+                                    </select>
+                                    <label for="cgpa/percentage"
+                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">cgpa/percentage
+                                        <span class="text-red-600">*</span></label>
+                                    <span class="error-message" id="cgpa/percentageError"></span>
+                                </div>
+
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="date"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="dob" id="dob" required>
+                                    <label for="dob"
+                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">CGPA
+                                        <span class="text-red-600">*</span></label>
+                                    <span class="error-message" id="dobError"></span>
+                                </div>
+                            </div>
+
+                            <!-- Mobile Number and Home Phone Number -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="tel"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="endMonth" id="endMonth" required>
+                                    <label for="endMonth"
+                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">End
+                                        Month</label>
+                                    <span class="error-message" id="endMonthError"></span>
+                                </div>
+
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="tel"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="homePhoneNumber" id="endyear">
+                                    <label for="endyear"
+                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">End
+                                        Year</label>
+                                    <span class="error-message" id="endyearError"></span>
+                                </div>
+                            </div>
+
+                            <!-- Nationality and Reservation Category -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="file"
+                                        class="file-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="uploaddoc" id="uploaddoc" required onchange="updateLabel(this)">
+                                    <label for="uploaddoc"
+                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all"
+                                        id="uploaddocLabel">Upload Doc<span class="text-red-600">*</span></label>
+                                    <span class="error-message" id="uploaddocError"></span>
+                                </div>
+                            </div>
+
+                            <hr class="border-gray-300 my-4">
+
+                            <!-- First Name -->
+                            <div class="max-w-2xl mx-auto">
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                        <input type="text"
+                                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                            name="Qualification" id="Qualification" required>
+                                        <label for="Qualification"
+                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Qualification
+                                            <span class="text-red-600">*</span></label>
+                                        <span class="error-message" id="Qualification"></span>
+                                    </div>
+                                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                        <input type="text"
+                                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                            name="Institution" id="Institution">
+                                        <label for="Institution"
+                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Institution
+                                            Name</label>
+                                        <span class="error-message" id="InstitutioneError"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Location -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                        <input type="text"
+                                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                            name="Location" id="Location" required>
+                                        <label for="Location"
+                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Location<span
+                                                class="text-red-600">*</span></label>
+                                        <span class="error-message" id="LocationError"></span>
+                                    </div>
+
+                                    <!--Board -->
+                                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                        <input type="text"
+                                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                            name="board" id="board" required>
+                                        <label for="board"
+                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Board</label>
+                                        <span class="error-message" id="boardError"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Gender and Date of Birth -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                        <select id="cgpa/percentage"
+                                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                            name="cgpa/percentage" required>
+                                            <option value="" disabled selected>CGPA/Percentage</option>
+                                            <option value="cgpa">CGPA</option>
+                                            <option value="percentage">Percentage</option>
+
+                                        </select>
+                                        <label for="cgpa/percentage"
+                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">cgpa/percentage
+                                            <span class="text-red-600">*</span></label>
+                                        <span class="error-message" id="cgpa/percentageError"></span>
+                                    </div>
+
+                                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                        <input type="date"
+                                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                            name="dob" id="dob" required>
+                                        <label for="dob"
+                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">CGPA
+                                            <span class="text-red-600">*</span></label>
+                                        <span class="error-message" id="dobError"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Mobile Number and Home Phone Number -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                        <input type="tel"
+                                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                            name="endMonth" id="endMonth" required>
+                                        <label for="endMonth"
+                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">End
+                                            Month</label>
+                                        <span class="error-message" id="endMonthError"></span>
+                                    </div>
+
+                                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                        <input type="tel"
+                                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                            name="homePhoneNumber" id="endyear">
+                                        <label for="endyear"
+                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">End
+                                            Year</label>
+                                        <span class="error-message" id="endyearError"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Nationality and Reservation Category -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                        <input type="file"
+                                            class="file-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                            name="uploaddoc" id="uploaddoc" required onchange="updateLabel(this)">
+                                        <label for="uploaddoc"
+                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all"
+                                            id="uploaddocLabel">Upload Doc<span class="text-red-600">*</span></label>
+                                        <span class="error-message" id="uploaddocError"></span>
+                                    </div>
+                                </div>
+
+                                <hr class="border-gray-300 my-4">
+
+                                <!-- Add More Entry Form -->
+
+                                <div>
+                                    <div class="text-holder flex flex-col">
+                                        <span class="title text-1xl font-semibold mb-2 cursor-pointer"
+                                            onclick="addEntry()">+ Add
+                                            one more entry</span>
+                                    </div>
+
+                                    <div id="entryContainer">
+                                        <!-- Initial entry -->
+                                        <div class="form-entry">
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                                    <input type="text"
+                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                        name="Qualification" id="Qualification" required>
+                                                    <label for="Qualification"
+                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Qualification
+                                                        <span class="text-red-600">*</span></label>
+                                                    <span class="error-message" id="Qualification"></span>
+                                                </div>
+                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                                    <input type="text"
+                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                        name="collegeName" id="collegeName">
+                                                    <label for="collegeName"
+                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">College
+                                                        Name</label>
+                                                    <span class="error-message" id="CollegeError"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                                    <input type="text"
+                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                        name="Affiliated" id="Affiliated" required>
+                                                    <label for="Affiliated"
+                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Affiliated
+                                                        University</label>
+                                                    <span class="error-message" id="AffiliatedError"></span>
+                                                </div>
+                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                                    <input type="text"
+                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                        name="Location" id="Location" required>
+                                                    <label for="Location"
+                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Location<span
+                                                            class="text-red-600">*</span></label>
+                                                    <span class="error-message" id="LocationError"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                                    <select id="cgpa/percentage"
+                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                        name="cgpa/percentage" required>
+                                                        <option value="" disabled selected>CGPA/Percentage</option>
+                                                        <option value="cgpa">CGPA</option>
+                                                        <option value="percentage">Percentage</option>
+                                                    </select>
+                                                    <label for="cgpa/percentage"
+                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">cgpa/percentage
+                                                        <span class="text-red-600">*</span></label>
+                                                    <span class="error-message" id="cgpa/percentageError"></span>
+                                                </div>
+                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                                    <input type="date"
+                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                        name="dob" id="dob" required>
+                                                    <label for="dob"
+                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">CGPA
+                                                        <span class="text-red-600">*</span></label>
+                                                    <span class="error-message" id="dobError"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                                    <input type="tel"
+                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                        name="endMonth" id="endMonth" required>
+                                                    <label for="endMonth"
+                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Expected/Completed
+                                                        month</label>
+                                                    <span class="error-message" id="endMonthError"></span>
+                                                </div>
+
+                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                                    <input type="tel"
+                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                        name="Expected/Completed" id="endyear">
+                                                    <label for="Expected/Completed"
+                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Expected/Completed
+                                                        Year</label>
+                                                    <span class="error-message" id="Expected/CompletedError"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                                    <input type="file"
+                                                        class="file-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                        name="uploaddoc" id="uploaddoc" required
+                                                        onchange="updateLabel(this)">
+                                                    <label for="uploaddoc"
+                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all"
+                                                        id="uploaddocLabel">Upload Doc<span
+                                                            class="text-red-600">*</span></label>
+                                                    <span class="error-message" id="uploaddocError"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-holder flex flex-col">
+                                                <span class="title text-1xl font-semibold mb-2 cursor-pointer"
+                                                    onclick="removeEntry(this)">- Remove this
+                                                    entry</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="my-4"></div>
+                                <hr class="border-gray-300 my-4">
+                                <div class="flex flex-col md:flex-row justify-between items-center">
+                                    <div class="mt-4 md:mt-0">
+                                        <button type="submit" class="text-gray-600 hover:text-red-600">
+                                            Previous
+                                        </button>
+                                    </div>
+                                    <div class="mt-4 md:mt-0">
+                                        <button type="submit" class="text-gray-600 hover:text-red-600">
+                                            Save & Next
+                                        </button>
+                                    </div>
+                                </div>
+                </form>
+
+
+                <!-- Employment History Form (Hidden by default) -->
+                <form id="employment-history" class="form w-full p-4 lg:p-8 hidden" method="post" novalidate>
+                    <div class="set space-y-4">
+                        <div class="text-holder flex flex-col">
+                            <span class="text text-sm text-gray-500">part 3 of 9</span>
+                            <span class="title text-2xl font-semibold mb-2">EMPLOYMENT HISTORY</span>
+                        </div>
+                        <hr class="border-gray-300 my-4">
+                        <p class="text-gray-600">This section is non-mandatory for applicants without work experience. Please leave the
+                            fields blank if you don't have any entry to fill.</p>
+                        <div>
+                            <label class="block text-gray-700">Do you have any work experience?</label>
+                            <div class="mt-2 flex items-center">
+                                <input type="radio" name="work_experience" value="yes" id="work_yes" class="mr-2">
+                                <label for="work_yes" class="mr-4">Yes</label>
+                                <input type="radio" name="work_experience" value="no" id="work_no" class="mr-2">
+                                <label for="work_no">No</label>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-lg font-semibold text-gray-700">Employment Details</h3>
+                            <p class="text-sm text-gray-500 mb-4">Provide your Employment details below.</p>
+                            <hr class="border-gray-300 my-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="org_name" class="block text-gray-700">Organization Name*</label>
+                                    <input type="text" id="org_name" class="form-input mt-1 block w-full"
+                                        placeholder="Organization Name">
+                                </div>
+                                <div>
+                                    <label for="designation" class="block text-gray-700">Designation*</label>
+                                    <input type="text" id="designation" class="form-input mt-1 block w-full" placeholder="Designation">
+                                </div>
+                                <div>
+                                    <label for="employment_type" class="block text-gray-700">Employment Type*</label>
+                                    <input type="text" id="employment_type" class="form-input mt-1 block w-full"
+                                        placeholder="Employment Type">
+                                </div>
+                                <div>
+                                    <label for="org_location" class="block text-gray-700">Organization Location*</label>
+                                    <input type="text" id="org_location" class="form-input mt-1 block w-full"
+                                        placeholder="Organization Location">
+                                </div>
+                                <div>
+                                    <label for="org_url" class="block text-gray-700">Organization URL</label>
+                                    <input type="text" id="org_url" class="form-input mt-1 block w-full" placeholder="Organization URL">
+                                </div>
+                                <div>
+                                    <label for="start_date" class="block text-gray-700">Start Date*</label>
+                                    <input type="date" id="start_date" class="form-input mt-1 block w-full">
+                                </div>
+                                <div>
+                                    <label for="end_date" class="block text-gray-700">End Date*</label>
+                                    <input type="date" id="end_date" class="form-input mt-1 block w-full">
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" class="form-checkbox">
+                                    <span class="ml-2">Currently Working</span>
+                                </label>
+                            </div>
+                            <div class="mt-4">
+                                <button type="button" class="text-blue-500 font-medium">+ Add one more entry</button>
+                            </div>
+                            <div class="mt-4">
+                                <label for="linkedin_url" class="block text-gray-700">Your LinkedIn URL</label>
+                                <input type="text" id="linkedin_url" class="form-input mt-1 block w-full"
+                                    placeholder="Your LinkedIn URL">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Awards and Honors Form (Hidden by default) -->
+                <form id="awards-honors" class="form w-full p-8 hidden" method="post" novalidate>
+                    <div class="set space-y-4">
+                        <div class="text-holder flex flex-col">
+                            <span class="text text-sm text-gray-500">part 4 of 9</span>
+                            <span class="title text-2xl font-semibold mb-2">AWARDS AND HONORS</span>
+                        </div>
+                        <hr class="border-gray-300 my-4">
+                        <!-- Add form fields here -->
+                    </div>
+                </form>
+
+                <!-- Statement of Purpose Form (Hidden by default) -->
+                <form id="statement-purpose" class="form w-full p-8 hidden" method="post" novalidate>
+                    <div class="set space-y-4">
+                        <div class="text-holder flex flex-col">
+                            <span class="text text-sm text-gray-500">part 5 of 9</span>
+                            <span class="title text-2xl font-semibold mb-2">STATEMENT OF PURPOSE</span>
+                        </div>
+                        <hr class="border-gray-300 my-4">
+                        <!-- Add form fields here -->
+                    </div>
+                </form>
+
+                <!-- Policy Questions Form (Hidden by default) -->
+                <form id="policy-questions" class="form w-full p-8 hidden" method="post" novalidate>
+                    <div class="set space-y-4">
+                        <div class="text-holder flex flex-col">
+                            <span class="text text-sm text-gray-500">part 6 of 9</span>
+                            <span class="title text-2xl font-semibold mb-2">POLICY QUESTIONS</span>
+                        </div>
+                        <hr class="border-gray-300 my-4">
+                        <!-- Add form fields here -->
+                    </div>
+                </form>
+
+                <!-- Scholarship Form (Hidden by default) -->
+                <form id="scholarship" class="form w-full p-8 hidden" method="post" novalidate>
+                    <div class="set space-y-4">
+                        <div class="text-holder flex flex-col">
+                            <span class="text text-sm text-gray-500">part 7 of 9</span>
+                            <span class="title text-2xl font-semibold mb-2">SCHOLARSHIP</span>
+                        </div>
+                        <hr class="border-gray-300 my-4">
+                        <!-- Add form fields here -->
+                    </div>
+                </form>
+
+                <!-- Recommendations Form (Hidden by default) -->
+                <form id="recommendations" class="form w-full p-8 hidden" method="post" novalidate>
+                    <div class="set space-y-4">
+                        <div class="text-holder flex flex-col">
+                            <span class="text text-sm text-gray-500">part 8 of 9</span>
+                            <span class="title text-2xl font-semibold mb-2">RECOMMENDATIONS</span>
+                        </div>
+                        <hr class="border-gray-300 my-4">
+                        <!-- Add form fields here -->
+                    </div>
+                </form>
+
+                <!-- Final Preview Form (Hidden by default) -->
+                <form id="final-preview" class="form w-full p-8 hidden" method="post" novalidate>
+                    <div class="set space-y-4">
+                        <div class="text-holder flex flex-col">
+                            <span class="text text-sm text-gray-500">part 9 of 9</span>
+                            <span class="title text-2xl font-semibold mb-2">FINAL PREVIEW</span>
+                        </div>
+                        <hr class="border-gray-300 my-4">
+                        <!-- Add form fields here -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+    <script src="/js/formsections.js" defer></script>
+    <script src="/js/validations.js"></script>
+
+</body>
+
+</html>
