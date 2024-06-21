@@ -116,9 +116,6 @@ document
     var isValid = true;
     emailError.textContent = "";
     passwordError.textContent = "";
-
-    // use this for password and email validations later
-
     if (!emailField.checkValidity()) {
       emailError.textContent = "Please enter a valid email address.";
       isValid = false;
@@ -135,32 +132,24 @@ function validateForgetPasswordForm() {
   var emailField = document.getElementById("forget_email");
   var emailError = document.getElementById("forgetEmailError");
   var isValid = true;
-
-  // Clear previous error message
   emailError.textContent = "";
-
-  // Email validation
   if (!emailField.checkValidity()) {
     emailError.textContent = "Please enter a valid email address.";
     isValid = false;
   }
-
   if (isValid) {
     document.getElementById("forget_password_form").submit();
   }
 }
-
 function updateFileName(input) {
   const label = input.nextElementSibling;
   const labelText =
-    input.files.length > 0 ? input.files[0].name : "Photo | 5MB"; // Adjust label text accordingly
+    input.files.length > 0 ? input.files[0].name : "Photo | 5MB";
   label.textContent = labelText;
 }
-
 function redirectToStepsForm() {
   window.location.href = "stepsform.html";
 }
-
 function toggleMailingForm() {
   var yesMailing = document.getElementById("yesMailing").checked;
   var mailingForm = document.getElementById("mailingForm");
@@ -170,74 +159,50 @@ function toggleMailingForm() {
     mailingForm.classList.remove("hidden");
   }
 }
-
 function updateLabel(input) {
-  const label = input.nextElementSibling; // Get the label element
-  const files = input.files; // Get the selected files
-
+  const label = input.nextElementSibling;
+  const files = input.files;
   if (files.length > 0) {
-    label.textContent = files[0].name; // Display the selected file name
+    label.textContent = files[0].name;
   } else {
-    label.textContent = "Resume | 10MB Pdf"; // Reset label text if no file selected
+    label.textContent = "Resume | 10MB Pdf";
   }
 }
-// Function to handle click on list item
 function handleItemClick(sectionId) {
-  // Hide all form sections
   hideAllSections();
-
-  // Show the selected form section
   let section = document.getElementById(`section${sectionId}`);
   if (section) {
     section.classList.remove("hidden");
   }
 }
-
-// Function to hide all form sections except the specified one
 function hideAllSections() {
   let formSections = document.querySelectorAll(".form-section");
   formSections.forEach((section) => {
     section.classList.add("hidden");
   });
 }
-
-// Initially hide all form sections
 hideAllSections();
-
-// Function to add a new entry
 function addEntry() {
-  // Clone the template entry
   let entryTemplate = document.querySelector(".form-entry");
   let newEntry = entryTemplate.cloneNode(true);
-
-  // Clear input values of the new entry
   clearInputValues(newEntry);
-
-  // Append the new entry to the container
   let entryContainer = document.getElementById("entryContainer");
   entryContainer.appendChild(newEntry);
 }
-
-// Function to remove an entry
 function removeEntry(entry) {
-  // Get the parent container and remove the entry
   let entryContainer = entry.closest(".form-entry");
   entryContainer.remove();
 }
-
-// Function to clear input values of a cloned entry
 function clearInputValues(entry) {
   let inputs = entry.querySelectorAll("input, select");
   inputs.forEach((input) => {
     if (input.type === "file") {
-      input.value = null; // Clear file input value (for security reasons, you cannot set it programmatically)
+      input.value = null;
     } else {
-      input.value = ""; // Clear text and select inputs
+      input.value = "";
     }
   });
 }
-
-// Function to update the label text when a file is selected
 function updateLabel(input) {
   let label = input.nextElementSibling;
   if (input.files.length > 0) {
