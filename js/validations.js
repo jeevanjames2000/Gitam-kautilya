@@ -136,6 +136,7 @@ function validateForgetPasswordForm() {
   if (!emailField.checkValidity()) {
     emailError.textContent = "Please enter a valid email address.";
     isValid = false;
+    window.location.href = "/Pages/passwordchange.html";
   }
   if (isValid) {
     document.getElementById("forget_password_form").submit();
@@ -148,7 +149,7 @@ function updateFileName(input) {
   label.textContent = labelText;
 }
 function redirectToStepsForm() {
-  window.location.href = "stepsform.html";
+  window.location.href = "/Pages/stepsform.html";
 }
 function toggleMailingForm() {
   var yesMailing = document.getElementById("yesMailing").checked;

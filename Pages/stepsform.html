@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Form</title>
+    <title>Kautilya School of Public Policy</title>
+        <link rel="icon" href="/Images/kautilya_logo.png" type="image/png" />
+
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -186,7 +188,17 @@
             /* Align items at the top */
             gap: 20px;
         }
+.floating-label textarea {
+            resize: both; /* Allow the textarea to be resizable both horizontally and vertically */
+        }
 
+          .char-count {
+            position: absolute;
+            bottom: -1rem;
+            right: 4px;
+            color: #4a5568;
+            font-size: 0.75rem; /* text-xs */
+        }
         /*  */
     </style>
 
@@ -279,7 +291,7 @@
                             data-target="policy-questions">
                             <h4 class="text-lg text-left pl-10 font-medium">6. POLICY QUESTIONS</h4>
                         </li>
-                        <li class="mb-4 cursor-pointer" onclick="handleItemClick('scholarship')"
+                        <li class="mb-4 cursor-pointer " 
                             data-target="scholarship">
                             <h4 class="text-lg text-left pl-10 font-medium">7. SCHOLARSHIP</h4>
                         </li>
@@ -306,579 +318,680 @@
             <!-- Right form div -->
             <div class="w-full lg:w-2/3 h-full bg-white flex items-center rounded-lg shadow-lg justify-center">
                 <!-- right form div starts-->
-                <form id="personal-info" class="form w-full p-8" method="post" novalidate>
-                    <div class="set space-y-4">
-                        <div class="text-holder flex flex-col">
-                            <span class="text text-sm text-gray-500">part 1 of 9</span>
-                            <span class="title text-2xl font-semibold mb-2">PERSONAL INFORMATION</span>
-                        </div>
-                        <hr class="border-gray-300 my-4">
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- First Name -->
-                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                <input type="text"
-                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                    name="firstName" id="firstName" required>
-                                <label for="firstName"
-                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">First
-                                    Name <span class="text-red-600">*</span></label>
-                                <span class="error-message" id="firstNameError"></span>
-                            </div>
-                            <!-- Middle Name -->
-                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                <input type="text"
-                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                    name="middleName" id="middleName">
-                                <label for="middleName"
-                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Middle
-                                    Name</label>
-                                <span class="error-message" id="middleNameError"></span>
-                            </div>
-                        </div>
-
-                        <!-- Last Name and Email -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- Last Name -->
-                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                <input type="text"
-                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                    name="lastName" id="lastName" required>
-                                <label for="lastName"
-                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Last
-                                    Name <span class="text-red-600">*</span></label>
-                                <span class="error-message" id="lastNameError"></span>
-                            </div>
-
-                            <!-- Email Address -->
-                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                <input type="email"
-                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                    name="email" id="email" required>
-                                <label for="email"
-                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Email
-                                    Address</label>
-                                <span class="error-message" id="emailError"></span>
-                            </div>
-                        </div>
-
-                        <!-- Gender and Date of Birth -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                <select id="gender"
-                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                    name="gender" required>
-                                    <option value="" disabled selected>Select Gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Other</option>
-                                </select>
-                                <label for="gender"
-                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Gender
-                                    <span class="text-red-600">*</span></label>
-                                <span class="error-message" id="genderError"></span>
-                            </div>
-
-                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                <input type="date"
-                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                    name="dob" id="dob" required>
-                                <label for="dob"
-                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Date
-                                    of Birth <span class="text-red-600">*</span></label>
-                                <span class="error-message" id="dobError"></span>
-                            </div>
-                        </div>
-
-                        <!-- Mobile Number and Home Phone Number -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                <input type="tel"
-                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                    name="mobileNumber" id="mobileNumber" required>
-                                <label for="mobileNumber"
-                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Mobile
-                                    Number</label>
-                                <span class="error-message" id="mobileNumberError"></span>
-                            </div>
-
-                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                <input type="tel"
-                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                    name="homePhoneNumber" id="homePhoneNumber">
-                                <label for="homePhoneNumber"
-                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Home
-                                    Phone Number</label>
-                                <span class="error-message" id="homePhoneNumberError"></span>
-                            </div>
-                        </div>
-
-                        <!-- Address -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                <input type="text"
-                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                    name="addressLine1" id="addressLine1" required>
-                                <label for="addressLine1"
-                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Address
-                                    Line 1</label>
-                                <span class="error-message" id="addressLine1Error"></span>
-                            </div>
-
-                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                <input type="text"
-                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                    name="addressLine2" id="addressLine2">
-                                <label for="addressLine2"
-                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Address
-                                    Line 2</label>
-                                <span class="error-message" id="addressLine2Error"></span>
-                            </div>
-                        </div>
-
-                        <!-- City and Postal Code -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                <input type="text"
-                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                    name="city" id="city" required>
-                                <label for="city"
-                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">City</label>
-                                <span class="error-message" id="cityError"></span>
-                            </div>
-
-                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                <input type="text"
-                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                    name="postalCode" id="postalCode" required>
-                                <label for="postalCode"
-                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Postal
-                                    Code</label>
-                                <span class="error-message" id="postalCodeError"></span>
-                            </div>
-                        </div>
-
-                        <!-- Country -->
-                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                            <select id="country"
-                                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                name="country" required>
-                                <option value="" disabled selected>Select Country</option>
-                                <!-- Add country options here -->
-                            </select>
-                            <label for="country"
-                                class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Country</label>
-                            <span class="error-message" id="countryError"></span>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="flex flex-col md:flex-row justify-end items-center">
-
-                            <div class="mt-4 md:mt-0">
-                                <button type="submit" class="text-gray-600 hover:text-red-600">
-                                    Submit
-                                </button>
-                            </div>
-                        </div>
+            <form id="personal-info" class="form w-full p-8" method="post" novalidate>
+                <div class="set space-y-4">
+                    <div class="text-holder flex flex-col">
+                        <span class="text text-sm text-gray-500">part 1 of 9</span>
+                        <span class="title text-2xl font-semibold mb-2">PERSONAL INFORMATION</span>
                     </div>
+                    <hr class="border-gray-300 my-4">
+                    <!-- Add form fields here -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- First Name -->
+                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                        <input type="text"
+                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                            name="firstName" id="firstName" required>
+                        <label for="firstName"
+                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">First
+                            Name <span class="text-red-600">*</span></label>
+                        <span class="error-message" id="firstNameError"></span>
+                    </div>
+                    <!-- Middle Name -->
+                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                        <input type="text"
+                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                            name="middleName" id="middleName">
+                        <label for="middleName"
+                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Middle
+                            Name</label>
+                        <span class="error-message" id="middleNameError"></span>
+                    </div>
+                </div>
+                
+                <!-- Last Name and Email -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Last Name -->
+                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                        <input type="text"
+                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                            name="lastName" id="lastName" required>
+                        <label for="lastName"
+                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Last
+                            Name <span class="text-red-600">*</span></label>
+                        <span class="error-message" id="lastNameError"></span>
+                    </div>
+                
+                    <!-- Email Address -->
+                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                        <input type="email"
+                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                            name="email" id="email" required>
+                        <label for="email" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Email
+                            Address</label>
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+                </div>
+                
+                <!-- Gender and Date of Birth -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                        <select id="gender"
+                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
+                            name="gender" required>
+                            <option value="" disabled selected>Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <label for="gender"
+                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Gender
+                            <span class="text-red-600">*</span></label>
+                        <span class="error-message" id="genderError"></span>
+                    </div>
+                
+                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                        <input type="date"
+                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                            name="dob" id="dob" required>
+                        <label for="dob" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Date
+                            of Birth <span class="text-red-600">*</span></label>
+                        <span class="error-message" id="dobError"></span>
+                    </div>
+                </div>
+                
+                <!-- Mobile Number and Home Phone Number -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                        <input type="tel"
+                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                            name="mobileNumber" id="mobileNumber" required>
+                        <label for="mobileNumber"
+                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Mobile
+                            Number</label>
+                        <span class="error-message" id="mobileNumberError"></span>
+                    </div>
+                
+                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                        <input type="tel"
+                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                            name="homePhoneNumber" id="homePhoneNumber">
+                        <label for="homePhoneNumber"
+                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Home
+                            Phone Number</label>
+                        <span class="error-message" id="homePhoneNumberError"></span>
+                    </div>
+                </div>
+                
+                <!-- Address -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                        <input type="text"
+                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                            name="addressLine1" id="addressLine1" required>
+                        <label for="addressLine1"
+                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Address
+                            Line 1</label>
+                        <span class="error-message" id="addressLine1Error"></span>
+                    </div>
+                
+                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                        <input type="text"
+                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                            name="addressLine2" id="addressLine2">
+                        <label for="addressLine2"
+                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Address
+                            Line 2</label>
+                        <span class="error-message" id="addressLine2Error"></span>
+                    </div>
+                </div>
+                
+                <!-- City and Postal Code -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                        <input type="text"
+                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                            name="city" id="city" required>
+                        <label for="city"
+                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">City</label>
+                        <span class="error-message" id="cityError"></span>
+                    </div>
+                
+                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                        <input type="text"
+                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                            name="postalCode" id="postalCode" required>
+                        <label for="postalCode"
+                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Postal
+                            Code</label>
+                        <span class="error-message" id="postalCodeError"></span>
+                    </div>
+                </div>
+                
+                <!-- Country -->
+                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                    <select id="country"
+                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
+                        name="country" required>
+                        <option value="" disabled selected>Select Country</option>
+                        <!-- Add country options here -->
+                    </select>
+                    <label for="country"
+                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Country</label>
+                    <span class="error-message" id="countryError"></span>
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="flex flex-col md:flex-row justify-end items-center">
+                
+                    <div class="mt-4 md:mt-0">
+                        <button type="submit" class="text-gray-600 hover:text-red-600">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+                </div>
                 </form>
+            
+            <!-- Academic Details Form (Hidden by default) -->
+            <form id="academic-details" class="form w-full p-8 hidden" method="post" novalidate>
+                <div class="set space-y-4">
+                    <div class="text-holder flex flex-col">
+                        <span class="text text-sm text-gray-500">part 2 of 9</span>
+                        <span class="title text-2xl font-semibold mb-2">ACADEMIC DETAILS</span>
+                        <span class="text text-sm text-gray-500">Please list your qualifications, from your 10th standard up until the most recent qualification.
+</span>
 
-                <!-- Academic Details Form (Hidden by default) -->
-                <form id="academic-details" class="form w-full p-8 hidden" method="post" novalidate>
-                    <div class="set space-y-4">
-                        <div class="text-holder flex flex-col">
-                            <span class="text text-sm text-gray-500">part 2 of 9</span>
-                            <span class="title text-2xl font-semibold mb-2">ACADEMIC DETAILS</span>
-                            <span class="text text-sm text-gray-500">
-                                Please list your qualifications, from your 10th standard up until the most recent
-                                qualification.
-
-                            </span>
-
-                        </div>
-                        <hr class="border-gray-300 my-4">
-                        <!-- added -->
-
-                        <!-- First Name -->
-                        <div class="max-w-2xl mx-auto">
-
-                            <!-- Qualification and Institution -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                    <input type="text"
-                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                        name="Qualification" id="Qualification" required>
-                                    <label for="Qualification"
-                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Qualification
-                                        <span class="text-red-600">*</span></label>
-                                    <span class="error-message" id="Qualification"></span>
-                                </div>
-                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                    <input type="text"
-                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                        name="Institution" id="Institution">
-                                    <label for="Institution"
-                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Institution
-                                        Name</label>
-                                    <span class="error-message" id="InstitutioneError"></span>
-                                </div>
-                            </div>
-
-                            <!-- Location -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                    <input type="text"
-                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                        name="Location" id="Location" required>
-                                    <label for="Location"
-                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Location<span
-                                            class="text-red-600">*</span></label>
-                                    <span class="error-message" id="LocationError"></span>
-                                </div>
-
-                                <!--Board -->
-                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                    <input type="text"
-                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                        name="board" id="board" required>
-                                    <label for="board"
-                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Board</label>
-                                    <span class="error-message" id="boardError"></span>
-                                </div>
-                            </div>
-
-                            <!-- Gender and Date of Birth -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                    <select id="cgpa/percentage"
-                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                        name="cgpa/percentage" required>
-                                        <option value="" disabled selected>CGPA/Percentage</option>
-                                        <option value="cgpa">CGPA</option>
-                                        <option value="percentage">Percentage</option>
-
-                                    </select>
-                                    <label for="cgpa/percentage"
-                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">cgpa/percentage
-                                        <span class="text-red-600">*</span></label>
-                                    <span class="error-message" id="cgpa/percentageError"></span>
-                                </div>
-
-                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                    <input type="date"
-                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                        name="dob" id="dob" required>
-                                    <label for="dob"
-                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">CGPA
-                                        <span class="text-red-600">*</span></label>
-                                    <span class="error-message" id="dobError"></span>
-                                </div>
-                            </div>
-
-                            <!-- Mobile Number and Home Phone Number -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                    <input type="tel"
-                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                        name="endMonth" id="endMonth" required>
-                                    <label for="endMonth"
-                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">End
-                                        Month</label>
-                                    <span class="error-message" id="endMonthError"></span>
-                                </div>
-
-                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                    <input type="tel"
-                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                        name="homePhoneNumber" id="endyear">
-                                    <label for="endyear"
-                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">End
-                                        Year</label>
-                                    <span class="error-message" id="endyearError"></span>
-                                </div>
-                            </div>
-
-                            <!-- Nationality and Reservation Category -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                    <input type="file"
-                                        class="file-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                        name="uploaddoc" id="uploaddoc" required onchange="updateLabel(this)">
-                                    <label for="uploaddoc"
-                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all"
-                                        id="uploaddocLabel">Upload Doc<span class="text-red-600">*</span></label>
-                                    <span class="error-message" id="uploaddocError"></span>
-                                </div>
-                            </div>
-
-                            <hr class="border-gray-300 my-4">
-
-                            <!-- First Name -->
-                            <div class="max-w-2xl mx-auto">
+                    </div>
+                    <hr class="border-gray-300 my-4">
+                    <!-- Add form fields here -->
 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <!-- Qualification -->
                                     <div class="floating-label relative bg-gray-200 rounded-t-lg">
                                         <input type="text"
                                             class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                            name="Qualification" id="Qualification" required>
-                                        <label for="Qualification"
-                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Qualification
-                                            <span class="text-red-600">*</span></label>
-                                        <span class="error-message" id="Qualification"></span>
+                                            name="qualification" id="qualification" required>
+                                        <label for="qualification"
+                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Qualification <span class="text-red-600">*</span></label>
+                                        <span class="error-message" id="firstNameError"></span>
                                     </div>
+                                    <!-- Institution Name -->
                                     <div class="floating-label relative bg-gray-200 rounded-t-lg">
                                         <input type="text"
                                             class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                            name="Institution" id="Institution">
-                                        <label for="Institution"
+                                            name="InstitutionName" id="InstitutionName">
+                                        <label for="InstitutionName"
                                             class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Institution
-                                            Name</label>
-                                        <span class="error-message" id="InstitutioneError"></span>
+                                            Name <span class="text-red-600">*</span></label>
+                                        <span class="error-message" id="InstitutionNameError"></span>
                                     </div>
                                 </div>
-
-                                <!-- Location -->
+                                
+                                <!-- Locationand Email -->
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
+                                    <!-- Location -->
                                     <div class="floating-label relative bg-gray-200 rounded-t-lg">
                                         <input type="text"
                                             class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                            name="Location" id="Location" required>
-                                        <label for="Location"
-                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Location<span
-                                                class="text-red-600">*</span></label>
-                                        <span class="error-message" id="LocationError"></span>
+                                            name="location" id="location" required>
+                                        <label for="location"
+                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">
+                                            Location <span class="text-red-600">*</span></label>
+                                        <span class="error-message" id="locationError"></span>
                                     </div>
-
-                                    <!--Board -->
+                                
+                                    <!-- Board -->
                                     <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                        <input type="text"
+                                        <input type="email"
                                             class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
                                             name="board" id="board" required>
-                                        <label for="board"
-                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Board</label>
+                                        <label for="email" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Board
+                                        <span class="text-red-600">*</span>   </label>
                                         <span class="error-message" id="boardError"></span>
                                     </div>
                                 </div>
-
-                                <!-- Gender and Date of Birth -->
+                                
+                                <!-- CGPA and Percentage -->
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div class="floating-label relative bg-gray-200 rounded-t-lg">
                                         <select id="cgpa/percentage"
                                             class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
                                             name="cgpa/percentage" required>
-                                            <option value="" disabled selected>CGPA/Percentage</option>
+                                            <option value="" disabled selected>Select Gender</option>
                                             <option value="cgpa">CGPA</option>
                                             <option value="percentage">Percentage</option>
-
+                                           
                                         </select>
                                         <label for="cgpa/percentage"
-                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">cgpa/percentage
+                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">CGPA/Percentage
                                             <span class="text-red-600">*</span></label>
-                                        <span class="error-message" id="cgpa/percentageError"></span>
+                                        <span class="error-message" id="cgpaError"></span>
                                     </div>
 
                                     <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                        <input type="date"
+                                        <input type="text"
                                             class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                            name="dob" id="dob" required>
-                                        <label for="dob"
-                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">CGPA
-                                            <span class="text-red-600">*</span></label>
-                                        <span class="error-message" id="dobError"></span>
+                                            name="cgpa" id="cgpa" required>
+                                        <label for="cgpa" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">CGPA<span class="text-red-600">*</span>
+                                        </label>
+                                        <span class="error-message" id="cgpaError"></span>
                                     </div>
+                                
                                 </div>
-
-                                <!-- Mobile Number and Home Phone Number -->
+                                
+                                <!-- End month and YEAr-->
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                        <input type="tel"
-                                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                            name="endMonth" id="endMonth" required>
-                                        <label for="endMonth"
-                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">End
-                                            Month</label>
-                                        <span class="error-message" id="endMonthError"></span>
-                                    </div>
-
-                                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                        <input type="tel"
-                                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                            name="homePhoneNumber" id="endyear">
-                                        <label for="endyear"
-                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">End
-                                            Year</label>
-                                        <span class="error-message" id="endyearError"></span>
-                                    </div>
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="month"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="endmonth" id="endmonth" required>
+                                    <label for="endmonth" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">End
+                                        Month <span class="text-red-600">*</span></label>
+                                    <span class="error-message" id="dobError"></span>
                                 </div>
 
-                                <!-- Nationality and Reservation Category -->
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="date"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="endmonth" id="endmonth" required>
+                                    <label for="endmonth" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">End
+                                        Year <span class="text-red-600">*</span></label>
+                                    <span class="error-message" id="endyearError"></span>
+                                </div>
+                            
+                                </div>
+                                
+                                <!-- Upload -->
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div class="floating-label relative bg-gray-200 rounded-t-lg">
                                         <input type="file"
                                             class="file-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
                                             name="uploaddoc" id="uploaddoc" required onchange="updateLabel(this)">
-                                        <label for="uploaddoc"
-                                            class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all"
+                                        <label for="uploaddoc" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all"
                                             id="uploaddocLabel">Upload Doc<span class="text-red-600">*</span></label>
                                         <span class="error-message" id="uploaddocError"></span>
                                     </div>
                                 </div>
+<div class="my-4"></div>
+<hr class="border-gray-300 my-4">
 
-                                <hr class="border-gray-300 my-4">
+<!-- first form ends -->
 
-                                <!-- Add More Entry Form -->
-
-                                <div>
-                                    <div class="text-holder flex flex-col">
-                                        <span class="title text-1xl font-semibold mb-2 cursor-pointer"
-                                            onclick="addEntry()">+ Add
-                                            one more entry</span>
-                                    </div>
-
-                                    <div id="entryContainer">
-                                        <!-- Initial entry -->
-                                        <div class="form-entry">
-                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                                    <input type="text"
-                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                                        name="Qualification" id="Qualification" required>
-                                                    <label for="Qualification"
-                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Qualification
-                                                        <span class="text-red-600">*</span></label>
-                                                    <span class="error-message" id="Qualification"></span>
-                                                </div>
-                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                                    <input type="text"
-                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                                        name="collegeName" id="collegeName">
-                                                    <label for="collegeName"
-                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">College
-                                                        Name</label>
-                                                    <span class="error-message" id="CollegeError"></span>
-                                                </div>
-                                            </div>
+                                <!-- second form  -->
 
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <!-- Qualification -->
                                                 <div class="floating-label relative bg-gray-200 rounded-t-lg">
                                                     <input type="text"
                                                         class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                                        name="Affiliated" id="Affiliated" required>
-                                                    <label for="Affiliated"
-                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Affiliated
-                                                        University</label>
-                                                    <span class="error-message" id="AffiliatedError"></span>
-                                                </div>
-                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                                    <input type="text"
-                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                                        name="Location" id="Location" required>
-                                                    <label for="Location"
-                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Location<span
+                                                        name="qualification" id="qualification" required>
+                                                    <label for="qualification"
+                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Qualification <span
                                                             class="text-red-600">*</span></label>
-                                                    <span class="error-message" id="LocationError"></span>
+                                                    <span class="error-message" id="firstNameError"></span>
+                                                </div>
+                                                <!-- Institution Name -->
+                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                                    <input type="text"
+                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                        name="InstitutionName" id="InstitutionName">
+                                                    <label for="InstitutionName"
+                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Institution
+                                                        Name <span class="text-red-600">*</span></label>
+                                                    <span class="error-message" id="InstitutionNameError"></span>
                                                 </div>
                                             </div>
-
+                                            
+                                            <!-- Locationand Email -->
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <!-- Location -->
+                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                                    <input type="text"
+                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                        name="location" id="location" required>
+                                                    <label for="location" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">
+                                                        Location <span class="text-red-600">*</span></label>
+                                                    <span class="error-message" id="locationError"></span>
+                                                </div>
+                                            
+                                                <!-- Board -->
+                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                                    <input type="email"
+                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                        name="board" id="board" required>
+                                                    <label for="email" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Board
+                                                    <span class="text-red-600">*</span></label>
+                                                    <span class="error-message" id="boardError"></span>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- CGPA and Percentage -->
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                 <div class="floating-label relative bg-gray-200 rounded-t-lg">
                                                     <select id="cgpa/percentage"
                                                         class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
                                                         name="cgpa/percentage" required>
-                                                        <option value="" disabled selected>CGPA/Percentage</option>
+                                                        <option value="" disabled selected>Select Gender</option>
                                                         <option value="cgpa">CGPA</option>
                                                         <option value="percentage">Percentage</option>
+                                            
                                                     </select>
                                                     <label for="cgpa/percentage"
-                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">cgpa/percentage
+                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">CGPA/Percentage
                                                         <span class="text-red-600">*</span></label>
-                                                    <span class="error-message" id="cgpa/percentageError"></span>
+                                                    <span class="error-message" id="cgpaError"></span>
                                                 </div>
+                                            
+                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                                    <input type="text"
+                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                        name="cgpa" id="cgpa" required>
+                                                    <label for="cgpa" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">CGPA<span class="text-red-600">*</span>
+                                                    </label>
+                                                    <span class="error-message" id="cgpaError"></span>
+                                                </div>
+                                            
+                                            </div>
+                                            
+                                            <!-- End month and YEAr-->
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                                    <input type="month"
+                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                        name="endmonth" id="endmonth" required>
+                                                    <label for="endmonth" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">End
+                                                        Month <span class="text-red-600">*</span></label>
+                                                    <span class="error-message" id="dobError"></span>
+                                                </div>
+                                            
                                                 <div class="floating-label relative bg-gray-200 rounded-t-lg">
                                                     <input type="date"
                                                         class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                                        name="dob" id="dob" required>
-                                                    <label for="dob"
-                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">CGPA
-                                                        <span class="text-red-600">*</span></label>
-                                                    <span class="error-message" id="dobError"></span>
+                                                        name="endmonth" id="endmonth" required>
+                                                    <label for="endmonth" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">End
+                                                        Year <span class="text-red-600">*</span></label>
+                                                    <span class="error-message" id="endyearError"></span>
                                                 </div>
+                                            
                                             </div>
-
-                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                                    <input type="tel"
-                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                                        name="endMonth" id="endMonth" required>
-                                                    <label for="endMonth"
-                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Expected/Completed
-                                                        month</label>
-                                                    <span class="error-message" id="endMonthError"></span>
-                                                </div>
-
-                                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
-                                                    <input type="tel"
-                                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                                        name="Expected/Completed" id="endyear">
-                                                    <label for="Expected/Completed"
-                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Expected/Completed
-                                                        Year</label>
-                                                    <span class="error-message" id="Expected/CompletedError"></span>
-                                                </div>
-                                            </div>
-
+                                            
+                                            <!-- Upload -->
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                 <div class="floating-label relative bg-gray-200 rounded-t-lg">
                                                     <input type="file"
                                                         class="file-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
-                                                        name="uploaddoc" id="uploaddoc" required
-                                                        onchange="updateLabel(this)">
-                                                    <label for="uploaddoc"
-                                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all"
-                                                        id="uploaddocLabel">Upload Doc<span
-                                                            class="text-red-600">*</span></label>
+                                                        name="uploaddoc" id="uploaddoc" required onchange="updateLabel(this)">
+                                                    <label for="uploaddoc" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all"
+                                                        id="uploaddocLabel">Upload Doc<span class="text-red-600">*</span></label>
                                                     <span class="error-message" id="uploaddocError"></span>
                                                 </div>
                                             </div>
+<!-- second form ends -->
 
-                                            <div class="text-holder flex flex-col">
-                                                <span class="title text-1xl font-semibold mb-2 cursor-pointer"
-                                                    onclick="removeEntry(this)">- Remove this
-                                                    entry</span>
-                                            </div>
+<!-- third form starts -->
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Qualification -->
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="text"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="qualification" id="qualification" required>
+                                <label for="qualification"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Qualification <span
+                                        class="text-red-600">*</span></label>
+                                <span class="error-message" id="firstNameError"></span>
+                            </div>
+                            <!-- Institution Name -->
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="text"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="InstitutionName" id="InstitutionName">
+                                <label for="InstitutionName"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">College
+                                    Name <span class="text-red-600">*</span></label>
+                                <span class="error-message" id="InstitutionNameError"></span>
+                            </div>
+                        </div>
+                        
+                        <!-- Locationand Email -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Location -->
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="text"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="location" id="location" required>
+                                <label for="location" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">
+                                    Location <span class="text-red-600">*</span></label>
+                                <span class="error-message" id="locationError"></span>
+                            </div>
+                        
+                            <!-- Board -->
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="email"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="board" id="board" required>
+                                <label for="email" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Affiliated University
+                                    <span class="text-red-600">*</span></label>
+                                <span class="error-message" id="boardError"></span>
+                            </div>
+                        </div>
+                        
+                        <!-- CGPA and Percentage -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <select id="cgpa/percentage"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="cgpa/percentage" required>
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="cgpa">CGPA</option>
+                                    <option value="percentage">Percentage</option>
+                        
+                                </select>
+                                <label for="cgpa/percentage"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">CGPA/Percentage
+                                    <span class="text-red-600">*</span></label>
+                                <span class="error-message" id="cgpaError"></span>
+                            </div>
+                        
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="text"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="cgpa" id="cgpa" required>
+                                <label for="cgpa"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">CGPA<span
+                                        class="text-red-600">*</span>
+                                </label>
+                                <span class="error-message" id="cgpaError"></span>
+                            </div>
+                        
+                        </div>
+                        
+                        <!-- End month and YEAr-->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="month"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="endmonth" id="endmonth" required>
+                                <label for="endmonth" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Expected/Completion
+                                    Month <span class="text-red-600">*</span></label>
+                                <span class="error-message" id="dobError"></span>
+                            </div>
+                        
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="date"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="endmonth" id="endmonth" required>
+                                <label for="endmonth" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Expected/Completion
+                                    Year <span class="text-red-600">*</span></label>
+                                <span class="error-message" id="endyearError"></span>
+                            </div>
+                        
+                        </div>
+                        
+                        <!-- Upload -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="file"
+                                    class="file-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="uploaddoc" id="uploaddoc" required onchange="updateLabel(this)">
+                                <label for="uploaddoc" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all"
+                                    id="uploaddocLabel">Upload Doc<span class="text-red-600">*</span></label>
+                                <span class="error-message" id="uploaddocError"></span>
+                            </div>
+                        </div>
+
+                        <!-- third form ends  -->
+
+                        <!-- Add more fields form  -->
+                        <div>
+                            <div class="text-holder flex flex-col">
+                                <span class="title text-1xl font-semibold mb-2 cursor-pointer" onclick="addEntry()">+ Add
+                                    one more entry</span>
+                            </div>
+                        
+                            <div id="entryContainer">
+                                <!-- Initial entry -->
+                                <div class="form-entry">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                            <input type="text"
+                                                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                name="Qualification" id="Qualification" required>
+                                            <label for="Qualification"
+                                                class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Qualification
+                                                <span class="text-red-600">*</span></label>
+                                            <span class="error-message" id="Qualification"></span>
+                                        </div>
+                                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                            <input type="text"
+                                                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                name="collegeName" id="collegeName">
+                                            <label for="collegeName"
+                                                class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">College
+                                                Name</label>
+                                            <span class="error-message" id="CollegeError"></span>
                                         </div>
                                     </div>
+                        
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                            <input type="text"
+                                                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                name="Affiliated" id="Affiliated" required>
+                                            <label for="Affiliated"
+                                                class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Affiliated
+                                                University</label>
+                                            <span class="error-message" id="AffiliatedError"></span>
+                                        </div>
+                                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                            <input type="text"
+                                                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                name="Location" id="Location" required>
+                                            <label for="Location"
+                                                class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Location<span
+                                                    class="text-red-600">*</span></label>
+                                            <span class="error-message" id="LocationError"></span>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                            <select id="cgpa/percentage"
+                                                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                name="cgpa/percentage" required>
+                                                <option value="" disabled selected>CGPA/Percentage</option>
+                                                <option value="cgpa">CGPA</option>
+                                                <option value="percentage">Percentage</option>
+                                            </select>
+                                            <label for="cgpa/percentage"
+                                                class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">cgpa/percentage
+                                                <span class="text-red-600">*</span></label>
+                                            <span class="error-message" id="cgpa/percentageError"></span>
+                                        </div>
+                                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                            <input type="date"
+                                                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                name="dob" id="dob" required>
+                                            <label for="dob"
+                                                class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">CGPA
+                                                <span class="text-red-600">*</span></label>
+                                            <span class="error-message" id="dobError"></span>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                            <input type="tel"
+                                                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                name="endMonth" id="endMonth" required>
+                                            <label for="endMonth"
+                                                class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Expected/Completed
+                                                month</label>
+                                            <span class="error-message" id="endMonthError"></span>
+                                        </div>
+                        
+                                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                            <input type="tel"
+                                                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                name="Expected/Completed" id="endyear">
+                                            <label for="Expected/Completed"
+                                                class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Expected/Completed
+                                                Year</label>
+                                            <span class="error-message" id="Expected/CompletedError"></span>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                            <input type="file"
+                                                class="file-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                                name="uploaddoc" id="uploaddoc" required onchange="updateLabel(this)">
+                                            <label for="uploaddoc"
+                                                class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all"
+                                                id="uploaddocLabel">Upload Doc<span class="text-red-600">*</span></label>
+                                            <span class="error-message" id="uploaddocError"></span>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="text-holder flex flex-col">
+                                        <span class="title text-1xl font-semibold mb-2 cursor-pointer" onclick="removeEntry(this)">- Remove this
+                                            entry</span>
+                                    </div>
                                 </div>
+                            </div>
+                            
+                        </div>
+                        <!-- Add more fields form  -->
 
                                 <div class="my-4"></div>
                                 <hr class="border-gray-300 my-4">
-                                <div class="flex flex-col md:flex-row justify-between items-center">
-                                    <div class="mt-4 md:mt-0">
-                                        <button type="submit" class="text-gray-600 hover:text-red-600">
-                                            Previous
-                                        </button>
-                                    </div>
-                                    <div class="mt-4 md:mt-0">
-                                        <button type="submit" class="text-gray-600 hover:text-red-600">
-                                            Save & Next
-                                        </button>
-                                    </div>
+                                <!-- Submit Button -->
+                            <div class="flex flex-col md:flex-row justify-between items-center">
+                                <div class="mt-4 md:mt-0">
+                                    <button type="submit" class="text-gray-600 hover:text-red-600">
+                                        Previous
+                                    </button>
                                 </div>
-                </form>
+                                <div class="mt-4 md:mt-0">
+                                    <button type="submit" class="text-gray-600 hover:text-red-600">
+                                        Save & Next
+                                    </button>
+                                </div>
+                            </div>
+                </div>
+            </form>
+            
+            <!-- Employment History Form (Hidden by default) -->
+            <form id="employment-history" class="form w-full p-8 hidden" method="post" novalidate>
+                <div class="set space-y-4">
+                    <div class="text-holder flex flex-col">
+                        <span class="text text-sm text-gray-500">part 3 of 9</span>
+                        <span class="title text-2xl font-semibold mb-2">EMPLOYMENT HISTORY</span>
+                    </div>
+                    <hr class="border-gray-300 my-4">
+                    <!-- Add form fields here -->
 
-
-                <!-- Employment History Form (Hidden by default) -->
-                <form id="employment-history" class="form w-full p-4 lg:p-8 hidden" method="post" novalidate>
-                    <div class="set space-y-4">
-                        <div class="text-holder flex flex-col">
-                            <span class="text text-sm text-gray-500">part 3 of 9</span>
-                            <span class="title text-2xl font-semibold mb-2">EMPLOYMENT HISTORY</span>
-                        </div>
-                        <hr class="border-gray-300 my-4">
-                        <p class="text-gray-600">This section is non-mandatory for applicants without work experience. Please leave the
-                            fields blank if you don't have any entry to fill.</p>
                         <div>
                             <label class="block text-gray-700">Do you have any work experience?</label>
                             <div class="mt-2 flex items-center">
@@ -889,135 +1002,534 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <h3 class="text-lg font-semibold text-gray-700">Employment Details</h3>
-                            <p class="text-sm text-gray-500 mb-4">Provide your Employment details below.</p>
+                            
                             <hr class="border-gray-300 my-4">
+
+                            <div id="employmentDetails" class="hidden mt-4">
+                                
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label for="org_name" class="block text-gray-700">Organization Name*</label>
-                                    <input type="text" id="org_name" class="form-input mt-1 block w-full"
-                                        placeholder="Organization Name">
+                                <!-- Organization -->
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="text"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="organization" id="organization" required>
+                                    <label for="organization"
+                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Organization Name <span
+                                            class="text-red-600">*</span></label>
+                                    <span class="error-message" id="organizationError"></span>
                                 </div>
-                                <div>
-                                    <label for="designation" class="block text-gray-700">Designation*</label>
-                                    <input type="text" id="designation" class="form-input mt-1 block w-full" placeholder="Designation">
-                                </div>
-                                <div>
-                                    <label for="employment_type" class="block text-gray-700">Employment Type*</label>
-                                    <input type="text" id="employment_type" class="form-input mt-1 block w-full"
-                                        placeholder="Employment Type">
-                                </div>
-                                <div>
-                                    <label for="org_location" class="block text-gray-700">Organization Location*</label>
-                                    <input type="text" id="org_location" class="form-input mt-1 block w-full"
-                                        placeholder="Organization Location">
-                                </div>
-                                <div>
-                                    <label for="org_url" class="block text-gray-700">Organization URL</label>
-                                    <input type="text" id="org_url" class="form-input mt-1 block w-full" placeholder="Organization URL">
-                                </div>
-                                <div>
-                                    <label for="start_date" class="block text-gray-700">Start Date*</label>
-                                    <input type="date" id="start_date" class="form-input mt-1 block w-full">
-                                </div>
-                                <div>
-                                    <label for="end_date" class="block text-gray-700">End Date*</label>
-                                    <input type="date" id="end_date" class="form-input mt-1 block w-full">
+                                <!-- Designation Name -->
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="text"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="InstitutionName" id="InstitutionName">
+                                    <label for="InstitutionName"
+                                        class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Designation
+                                         <span class="text-red-600">*</span></label>
+                                    <span class="error-message" id="InstitutionNameError"></span>
                                 </div>
                             </div>
+                            
+                            <!-- Locationand Email -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- Location -->
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="text"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="location" id="location" required>
+                                    <label for="location" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">
+                                        Organization Location <span class="text-red-600">*</span></label>
+                                    <span class="error-message" id="locationError"></span>
+                                </div>
+                            <!-- Type -->
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <select id="employment"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="employment" required>
+                                    
+                                    <option value="cgpa">Full Time</option>
+                                    <option value="percentage">Part Time</option>
+                            
+                                </select>
+                                <label for="employment"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Employment Type
+                                    <span class="text-red-600">*</span></label>
+                                <span class="error-message" id="employmentError"></span>
+                            </div>
+                            </div>
+                            
+                            <!-- CGPA and Percentage -->
+                           
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="url"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="org-url" id="org-url" required>
+                                    <label for="org-url" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">
+                                        Organization Url <span class="text-red-600">*</span></label>
+                                    <span class="error-message" id="org-urlError"></span>
+                                </div>
+                            
+                            
+                            <!-- End month and YEAr-->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="dare"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="startdate" id="startdate" required>
+                                    <label for="startdate" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Start
+                                        Month <span class="text-red-600">*</span></label>
+                                    <span class="error-message" id="dobError"></span>
+                                </div>
+                            
+                                <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                    <input type="date"
+                                        class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                        name="endmonth" id="endmonth" required>
+                                    <label for="endmonth" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">End
+                                        Date <span class="text-red-600">*</span></label>
+                                    <span class="error-message" id="endyearError"></span>
+                                </div>
+                            
+                            </div>
+                        
+                            <div class="my-4"></div>
+                            <hr class="border-gray-300 my-4">
                             <div class="mt-4">
                                 <label class="inline-flex items-center">
                                     <input type="checkbox" class="form-checkbox">
                                     <span class="ml-2">Currently Working</span>
                                 </label>
                             </div>
-                            <div class="mt-4">
-                                <button type="button" class="text-blue-500 font-medium">+ Add one more entry</button>
-                            </div>
-                            <div class="mt-4">
-                                <label for="linkedin_url" class="block text-gray-700">Your LinkedIn URL</label>
-                                <input type="text" id="linkedin_url" class="form-input mt-1 block w-full"
-                                    placeholder="Your LinkedIn URL">
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                          
 
-                <!-- Awards and Honors Form (Hidden by default) -->
-                <form id="awards-honors" class="form w-full p-8 hidden" method="post" novalidate>
-                    <div class="set space-y-4">
-                        <div class="text-holder flex flex-col">
-                            <span class="text text-sm text-gray-500">part 4 of 9</span>
-                            <span class="title text-2xl font-semibold mb-2">AWARDS AND HONORS</span>
-                        </div>
-                        <hr class="border-gray-300 my-4">
-                        <!-- Add form fields here -->
-                    </div>
-                </form>
+<!-- ADD more fields form -->
 
-                <!-- Statement of Purpose Form (Hidden by default) -->
-                <form id="statement-purpose" class="form w-full p-8 hidden" method="post" novalidate>
-                    <div class="set space-y-4">
-                        <div class="text-holder flex flex-col">
-                            <span class="text text-sm text-gray-500">part 5 of 9</span>
-                            <span class="title text-2xl font-semibold mb-2">STATEMENT OF PURPOSE</span>
-                        </div>
-                        <hr class="border-gray-300 my-4">
-                        <!-- Add form fields here -->
-                    </div>
-                </form>
-
-                <!-- Policy Questions Form (Hidden by default) -->
-                <form id="policy-questions" class="form w-full p-8 hidden" method="post" novalidate>
-                    <div class="set space-y-4">
-                        <div class="text-holder flex flex-col">
-                            <span class="text text-sm text-gray-500">part 6 of 9</span>
-                            <span class="title text-2xl font-semibold mb-2">POLICY QUESTIONS</span>
-                        </div>
-                        <hr class="border-gray-300 my-4">
-                        <!-- Add form fields here -->
-                    </div>
-                </form>
-
-                <!-- Scholarship Form (Hidden by default) -->
-                <form id="scholarship" class="form w-full p-8 hidden" method="post" novalidate>
-                    <div class="set space-y-4">
-                        <div class="text-holder flex flex-col">
-                            <span class="text text-sm text-gray-500">part 7 of 9</span>
-                            <span class="title text-2xl font-semibold mb-2">SCHOLARSHIP</span>
-                        </div>
-                        <hr class="border-gray-300 my-4">
-                        <!-- Add form fields here -->
-                    </div>
-                </form>
-
-                <!-- Recommendations Form (Hidden by default) -->
-                <form id="recommendations" class="form w-full p-8 hidden" method="post" novalidate>
-                    <div class="set space-y-4">
-                        <div class="text-holder flex flex-col">
-                            <span class="text text-sm text-gray-500">part 8 of 9</span>
-                            <span class="title text-2xl font-semibold mb-2">RECOMMENDATIONS</span>
-                        </div>
-                        <hr class="border-gray-300 my-4">
-                        <!-- Add form fields here -->
-                    </div>
-                </form>
-
-                <!-- Final Preview Form (Hidden by default) -->
-                <form id="final-preview" class="form w-full p-8 hidden" method="post" novalidate>
-                    <div class="set space-y-4">
-                        <div class="text-holder flex flex-col">
-                            <span class="text text-sm text-gray-500">part 9 of 9</span>
-                            <span class="title text-2xl font-semibold mb-2">FINAL PREVIEW</span>
-                        </div>
-                        <hr class="border-gray-300 my-4">
-                        <!-- Add form fields here -->
-                    </div>
-                </form>
+    <div>
+        <div class="text-holder flex flex-col">
+            <span class="title text-1xl font-semibold mb-2 cursor-pointer" onclick="addEntry()">+ Add
+                one more entry</span>
+        </div>
+    
+        <div id="entryContainer">
+            <!-- Initial entry -->
+            <div class="form-entry">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Organization -->
+            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                <input type="text"
+                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                    name="organization" id="organization" required>
+                <label for="organization"
+                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Organization
+                    Name
+                    <span class="text-red-600">*</span></label>
+                <span class="error-message" id="organizationError"></span>
+            </div>
+            <!-- Designation Name -->
+            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                <input type="text"
+                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                    name="InstitutionName" id="InstitutionName">
+                <label for="InstitutionName"
+                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Role
+                    <span class="text-red-600">*</span></label>
+                <span class="error-message" id="InstitutionNameError"></span>
             </div>
         </div>
+
+        <!-- Location and Email -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Location -->
+            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                <input type="text"
+                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                    name="location" id="location" required>
+                <label for="location"
+                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">
+                    Organization Location <span class="text-red-600">*</span></label>
+                <span class="error-message" id="locationError"></span>
+            </div>
+            <!-- Type -->
+            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                <select id="employment"
+                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 pb-1 placeholder-transparent focus:border-blue-500"
+                    name="employment" required>
+
+                    <option value="cgpa">Full Time</option>
+                    <option value="percentage">Part Time</option>
+
+                </select>
+                <label for="employment"
+                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Employment
+                    Type
+                    <span class="text-red-600">*</span></label>
+                <span class="error-message" id="employmentError"></span>
+            </div>
+        </div>
+
+        <!-- CGPA and Percentage -->
+
+        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+            <input type="url"
+                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                name="org-url" id="org-url" required>
+            <label for="org-url" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">
+                Organization Url <span class="text-red-600">*</span></label>
+            <span class="error-message" id="org-urlError"></span>
+        </div>
+
+        <!-- End month and Year-->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                <input type="date"
+                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                    name="startdate" id="startdate" required>
+                <label for="startdate"
+                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Start
+                    Month <span class="text-red-600">*</span></label>
+                <span class="error-message" id="dobError"></span>
+            </div>
+
+            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                <input type="date"
+                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                    name="endmonth" id="endmonth" required>
+                <label for="endmonth"
+                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">End
+                    Date <span class="text-red-600">*</span></label>
+                <span class="error-message" id="endyearError"></span>
+            </div>
+
+        </div>
+
+            <div class="text-holder flex flex-col">
+                <span class="title text-1xl font-semibold mb-2 cursor-pointer" onclick="removeEntry(this)">- Remove this
+                    entry</span>
+            </div>
+            </div>
+            </div>
+
+                            </div>
+
+
+<!-- Add more field ends -->
+</div>     
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="text"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="linkedin_url" id="linkedin_url" required>
+                                <label for="linkedin_url" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">
+                                Your LinkedIn URL </label>
+                                <span class="error-message" id="linkedin_urlError"></span>
+                            </div>
+                            </div>
+                            </div>
+
+                    
+            </form>
+            
+            <!-- Awards and Honors Form (Hidden by default) -->
+        <form id="awards-honors" class="form w-full p-8 hidden" method="post" novalidate>
+            <div class="set space-y-4">
+                <div class="text-holder flex flex-col">
+                    <span class="text text-sm text-gray-500">part 4 of 9</span>
+                    <span class="title text-2xl font-semibold mb-2">AWARDS AND HONORS</span>
+                    <span class="text text-sm text-gray-500">This section is not mandatory.Please leave the fields blank if you don't have any entry to fill.</span>
+
+
+                </div>
+                <hr class="border-gray-300 my-4">
+                <div id="awardentryContainer">
+                    <!-- Initial entry (used as template) -->
+                    <div class="form-entry">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Award Title -->
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="text"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="awardtitle[]" id="awardtitle" required>
+                                <label for="awardtitle"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Award
+                                    Title
+                                </label>
+                                <span class="char-count" id="DescriptionCount">0/100</span>
+
+                            </div>
+                            <!-- Award Body -->
+                            <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                                <input type="text"
+                                    class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                    name="awardbody[]" id="awardbody" required>
+                                <label for="awardbody"
+                                    class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Award
+                                    Body
+                                </label>
+                                <span class="char-count" id="DescriptionCount">0/100</span>
+
+                            </div>
+                        </div>
+                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                            <input type="date"
+                                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                name="year[]" id="year" required>
+                            <label for="year"
+                                class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">Year
+                            </label>
+                                <span class="char-count" id="DescriptionCount">0/4</span>
+
+                        </div>
+                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                        <textarea
+                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                            name="Description[]" id="Description" required oninput="updateCharCount(this)"></textarea>
+                        <label for="Description" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">
+                            Description
+                        </label>
+                                <span class="char-count" id="DescriptionCount">0/500</span>
+                        </div>
+                        <div class="remove-entry cursor-pointer" onclick="removeAwardEntry(this)">Remove</div>
+                    </div>
+                </div>
+                <div class="text-holder flex flex-col cursor-pointer" onclick="addAwardEntry()">+ Add one more
+                        entry
+                    <!-- <span class="title text-1xl font-semibold mb-2 cursor-pointer" </span> -->
+                </div>
+                <div class="my-4"></div>
+                <hr class="border-gray-300 my-4">
+                <!-- Submit Button -->
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mt-4 md:mt-0">
+                        <button type="submit" class="text-gray-600 hover:text-red-600">
+                            Previous
+                        </button>
+                    </div>
+                    <div class="mt-4 md:mt-0">
+                        <button type="submit" class="text-gray-600 hover:text-red-600">
+                            Save & Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+            
+            <!-- Statement of Purpose Form (Hidden by default) -->
+            <form id="statement-purpose" class="form w-full p-8 hidden" method="post" novalidate>
+                <div class="set space-y-4">
+                    <div class="text-holder flex flex-col">
+                        <span class="text text-sm text-gray-500">part 5 of 9</span>
+                        <span class="title text-2xl font-semibold mb-2">STATEMENT OF PURPOSE</span>
+                        <span class="text text-sm text-gray-500 mb-2" >In a maximum of 500 words, complete the following essay as part of your application process.</span>
+                        <span class="text text-sm text-gray-500 mb-2">Essay will be checked for plagiarism. We recommend you write the essay in your own words.
+</span>
+                        <span class="text text-1xl mb-2 text-green-600 ">Download SOP Guidelines</span>
+                        </div>
+        <div class="my-4"></div>
+        <hr class="border-gray-300 my-4">
+
+        <span class="title text-2xl font-semibold mb-2">Essay</span>
+<span class="text text-sm text-gray-500">Why do you want to pursue a public policy course? Describe your academic interests, strengths, and background to help us
+understand your motivation for the same. (500 words)</span>
+
+                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                        <textarea
+                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                            name="pleasetype" id="pleasetype" required oninput="updateCharCount(this)"></textarea>
+                        <label for="pleasetype" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">
+                            Please type here
+                        </label>
+                                         <span class="text-red-600">*</span></label>
+
+                        <span class="char-count" id="pleasetype">0/500</span>
+                    </div>
+                    <hr class="border-gray-300 my-4">
+
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <div class="mt-4 md:mt-0">
+                            <button type="submit" class="text-gray-600 hover:text-red-600">
+                                Previous
+                            </button>
+                        </div>
+                        <div class="mt-4 md:mt-0">
+                            <button type="submit" class="text-gray-600 hover:text-red-600">
+                                Save & Next
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Add form fields here -->
+                </div>
+            </form>
+            
+            <!-- Policy Questions Form (Hidden by default) -->
+            <form id="policy-questions" class="form w-full p-8 hidden" method="post" novalidate>
+                <div class="set space-y-4">
+                    <div class="text-holder flex flex-col">
+                        <span class="text text-sm text-gray-500">part 6 of 9</span>
+                        <span class="title text-2xl font-semibold mb-2">Policy Questions
+</span>
+                        <span class="text text-sm text-gray-500 mb-2">The questions are to gauge your interest in public policy. Please stick to the word limit when answering.
+</span>
+
+                    </div>
+                    <div class="my-4"></div>
+                    <hr class="border-gray-300 my-4">
+                    <div class="text-holder flex flex-col">
+                    <span class="title text-2xl font-semibold mb-2">Question 1</span>
+                    <span class="text text-sm text-gray-500">Mention one public policy issue which needs urgent attention in our country. (50 words)
+</span>
+</div>
+                
+                    <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                        <textarea
+                            class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                            name="pleasetype" id="pleasetype" required oninput="updateCharCount(this)"></textarea>
+                        <label for="pleasetype" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">
+                            Please type here
+                                        <span class="text-red-600">*</span></label>
+
+                        </label>
+                        
+                        <span class="char-count" id="pleasetype">0/500</span>
+                    </div>
+                    <hr class="border-gray-300 my-4">
+                    <div class="text-holder flex flex-col">
+
+                        <span class="title text-2xl font-semibold mb-2">Question 2</span>
+                        <span class="text text-sm text-gray-500">Has there been any government intervention on the same? (50 words)
+
+                        </span>
+                        </div>
+                        
+                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                            <textarea
+                                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                name="pleasetype" id="pleasetype" required oninput="updateCharCount(this)"></textarea>
+                            <label for="pleasetype" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">
+                                Please type here
+                                        <span class="text-red-600">*</span></label>
+
+                            </label>
+
+                            <span class="char-count" id="pleasetype">0/500</span>
+                        </div>
+                        <hr class="border-gray-300 my-4">
+                    <div class="text-holder flex flex-col">
+                        
+                        <span class="title text-2xl font-semibold mb-2">Question 3</span>
+                        <span class="text text-sm text-gray-500">Are you aware of any initiative/s by the private sector on the particular issue? (50 words)
+
+                        </span>
+                        </div>
+                        
+                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                            <textarea
+                                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                name="pleasetype" id="pleasetype" required oninput="updateCharCount(this)"></textarea>
+                            <label for="pleasetype" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">
+                                Please type here
+                                        <span class="text-red-600">*</span></label>
+
+                            </label>
+                            <span class="char-count" id="pleasetype">0/500</span>
+                        </div>
+                        <hr class="border-gray-300 my-4">
+                    <div class="text-holder flex flex-col">
+                        
+                        <span class="title text-2xl font-semibold mb-2">Question 4</span>
+                        <span class="text text-sm text-gray-500">Is this issue globally predominant?
+
+                        </span>
+                        </div>
+                        
+                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                            <input type="text"
+                                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                name="pleasetype" id="pleasetype" required oninput="updateCharCount(this)"/>
+                            <label for="pleasetype" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">
+                                Please type here
+                                        <span class="text-red-600">*</span></label>
+
+                            </label>
+                            <span class="char-count" id="pleasetype">0/500</span>
+                        </div>
+                        <hr class="border-gray-300 my-4">
+                    <div class="text-holder flex flex-col">
+                       
+                        <span class="title text-2xl font-semibold mb-2">Question 6</span>
+                        <span class="text text-sm text-gray-500">Can you suggest one intervention needed to successfully overcome any deficit in either planning or implementation of the
+                        issue? (100 words)
+                        
+                        </span>
+                        </div>
+                        
+                        <div class="floating-label relative bg-gray-200 rounded-t-lg">
+                            <textarea
+                                class="floating-input w-full border-0 border-b-2 border-gray-400 outline-none text-lg text-gray-800 bg-transparent pt-4 px-4 pb-1 placeholder-transparent focus:border-blue-500"
+                                name="pleasetype" id="pleasetype" required oninput="updateCharCount(this)"></textarea>
+                            <label for="pleasetype" class="absolute top-4 left-4 text-lg text-gray-400 pointer-events-none transition-all">
+                                Please type here
+                                        <span class="text-red-600">*</span></label>
+
+                            </label>
+                            <span class="char-count" id="pleasetype">0/500</span>
+                        </div>
+                        <hr class="border-gray-300 my-4">
+
+                
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <div class="mt-4 md:mt-0">
+                            <button type="submit" class="text-gray-600 hover:text-red-600">
+                                Previous
+                            </button>
+                        </div>
+                        <div class="mt-4 md:mt-0">
+                            <button type="submit" class="text-gray-600 hover:text-red-600">
+                                Save & Next
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Add form fields here -->
+                </div>
+            </form>
+            
+            <!-- Scholarship Form (Hidden by default) -->
+            <form id="scholarship" class="form w-full p-8 hidden" method="post" novalidate>
+                <div class="set space-y-4">
+                    <div class="text-holder flex flex-col">
+                        <span class="text text-sm text-gray-500">part 7 of 9</span>
+                        <span class="title text-2xl font-semibold mb-2">SCHOLARSHIP</span>
+                    </div>
+                    <hr class="border-gray-300 my-4">
+                    <!-- Add form fields here -->
+                </div>
+            </form>
+            
+            <!-- Recommendations Form (Hidden by default) -->
+            <form id="recommendations" class="form w-full p-8 hidden" method="post" novalidate>
+                <div class="set space-y-4">
+                    <div class="text-holder flex flex-col">
+                        <span class="text text-sm text-gray-500">part 8 of 9</span>
+                        <span class="title text-2xl font-semibold mb-2">RECOMMENDATIONS</span>
+                    </div>
+                    <hr class="border-gray-300 my-4">
+                    <!-- Add form fields here -->
+                </div>
+            </form>
+            
+            <!-- Final Preview Form (Hidden by default) -->
+            <form id="final-preview" class="form w-full p-8 hidden" method="post" novalidate>
+                <div class="set space-y-4">
+                    <div class="text-holder flex flex-col">
+                        <span class="text text-sm text-gray-500">part 9 of 9</span>
+                        <span class="title text-2xl font-semibold mb-2">FINAL PREVIEW</span>
+                    </div>
+                    <hr class="border-gray-300 my-4">
+                    <!-- Add form fields here -->
+                </div>
+            </form>
+            </div>
     </div>
     </div>
+
 
 
 
